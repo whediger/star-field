@@ -46,17 +46,34 @@ public class GamePanel extends JPanel {
     }
   }
 
-  protected void moveStars(){
+
+  //protected void moveStars(){ moveStars(PlayerInput.NONE); }
+
+  public void moveStars(PlayerInput pi){
     for (int i = 0; i < stars.length; i++) {
       int speed;
       if (stars[i].getDiameter() == 0) speed = 1;
       else speed = stars[i].getDiameter();
 
+      //handle user input
+      if (pi == pi.RIGHT)
+        stars[i].setX(stars[i].getX() - speed);
+      if (pi == pi.LEFT)
+        stars[i].setX(stars[i].getX() + speed);
+
+      //handle stars going off screen
       stars[i].setY(stars[i].getY() + speed);
+      //going off bottom
       if(stars[i].getY() >= HEIGHT){
         stars[i] = new Stars(WIDTH, HEIGHT);
         stars[i].setY(0);
       }
+      //going off the sides
+      if(stars[i].getX() < -stars[i].getDiameter())
+        stars[i].setX(WIDTH + stars[i].getDiameter());
+      if(stars[i].getX() > stars[i].getDiameter() + WIDTH)
+        stars[i].setX(-stars[i].getDiameter());
+
     }
   }
 }

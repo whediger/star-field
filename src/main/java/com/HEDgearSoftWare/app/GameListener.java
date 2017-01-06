@@ -13,7 +13,6 @@ public class GameListener implements KeyListener {
   GameListener(GamePanel gp){
       gamePanel = gp;
       gamePanel.addKeyListener(this);
-      System.out.println(gamePanel.isFocusable());
   }
 
   public PlayerInput getInput(){
@@ -25,13 +24,16 @@ public class GameListener implements KeyListener {
     //39 is right
     //37 is left
     key = e.getKeyCode();
+    //Printline for dev use; retrieving key codes
     // System.out.println("key pressed: " + e.getKeyCode());
     if (key == 39) input = PlayerInput.RIGHT;
     if (key == 37) input = PlayerInput.LEFT;
   }
 
   @Override
-  public void keyReleased(KeyEvent e){}
+  public void keyReleased(KeyEvent e){
+    input = PlayerInput.NONE;
+  }
 
   @Override
   public void keyTyped(KeyEvent e) {}
