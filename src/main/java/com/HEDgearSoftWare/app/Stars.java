@@ -7,7 +7,7 @@ import java.util.Random;
 public class Stars {
   private int x;
   private int y;
-  private int radius;
+  private int diameter;
   private Color randomColor;
 
   Stars(int width, int height) {
@@ -15,10 +15,12 @@ public class Stars {
 
     randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 
-    x = Math.abs(rand.nextInt() % width);
+    diameter = rand.nextInt(2) + 1;
+    if (rand.nextInt(80) > 50) diameter = rand.nextInt(10);
+
+    x = rand.nextInt(width + (diameter * 2)) - diameter;
     y = Math.abs(rand.nextInt() % height);
-    radius = rand.nextInt(2);
-    if (rand.nextInt(80) > 75) radius = rand.nextInt(5);
+
   }
 
   public int getX(){
@@ -37,8 +39,8 @@ public class Stars {
     y = n;
   }
 
-  public int getRadius(){
-    return radius;
+  public int getDiameter(){
+    return diameter;
   }
 
   public Color getColor(){

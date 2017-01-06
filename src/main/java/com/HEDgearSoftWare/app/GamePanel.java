@@ -13,7 +13,7 @@ public class GamePanel extends JPanel {
 
   public static final int WIDTH = (int)(640*1.5);
   public static final int HEIGHT = (int)(480*1.5);
-  public Stars[] stars = new Stars[8000];
+  public Stars[] stars = new Stars[50];
 
   public GamePanel(){
     super();
@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setFocusable(true);
     requestFocus();
-    for(int i = 0; i < 8000; i++)
+    for(int i = 0; i < stars.length; i++)
       stars[i] = new Stars(WIDTH, HEIGHT);
   }
 
@@ -41,14 +41,18 @@ public class GamePanel extends JPanel {
     g.fillRect(0, 0, WIDTH, HEIGHT);
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());
-      g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
-      if(stars[i].getRadius() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
+      g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
+      if(stars[i].getDiameter() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
     }
   }
 
   protected void moveStars(){
     for (int i = 0; i < stars.length; i++) {
-      stars[i].setY(stars[i].getY() + 1);
+      int speed;
+      if (stars[i].getDiameter() == 0) speed = 1;
+      else speed = stars[i].getDiameter();
+
+      stars[i].setY(stars[i].getY() + speed);
       if(stars[i].getY() >= HEIGHT){
         stars[i] = new Stars(WIDTH, HEIGHT);
         stars[i].setY(0);
