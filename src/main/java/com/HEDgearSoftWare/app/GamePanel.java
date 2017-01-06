@@ -4,13 +4,15 @@ import java.awt.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Font;
+import java.util.Random;
 import javax.swing.JPanel;
+
 
 
 public class GamePanel extends JPanel {
 
-  public static final int WIDTH = 640;
-  public static final int HEIGHT = 480;
+  public static final int WIDTH = (int)(640*1.5);
+  public static final int HEIGHT = (int)(480*1.5);
 
   public GamePanel(){
     super();
@@ -23,13 +25,20 @@ public class GamePanel extends JPanel {
   public void paintComponent(Graphics g){
     super.paintComponent(g);
 
-    Font myFont = new Font(Font.MONOSPACED, Font.BOLD, 16);
-    g.setColor(Color.RED);
-    g.setFont(myFont);
-    g.drawString("Hello sanity", 10, 20);
-    g.setColor(Color.BLUE);
-    g.drawLine(20, 20, 630, 470);
-    g.drawLine((WIDTH/2), 0, (WIDTH/2), HEIGHT);
+    g.setColor(Color.BLACK);
+    g.fillRect(0, 0, WIDTH, HEIGHT);
+    for (int i = 0; i < 8000; i++) {
+    Random rand = new Random();
+    Color randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+    g.setColor(randomColor);
+
+      int x = Math.abs(rand.nextInt() % WIDTH);
+      int y = Math.abs(rand.nextInt() % HEIGHT);
+      int r = rand.nextInt(2);
+      if(i % 75 == 0) r = rand.nextInt(5);
+      g.drawOval(x, y, r, r);
+      if(r >= 1) g.fillOval(x, y, r, r);
+    }
   }
 
 }
