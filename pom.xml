@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.HEDgearSoftWare.app</groupId>
+  <artifactId>star-field</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>star-field</name>
+  <url>https://findwes-393ac.firebaseapp.com/1</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.9</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <developers>
+    <developer>
+      <name>Wes Hediger</name>
+      <id>HED2084</id>
+      <organization>HEDgear SoftWare</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <description>
+    "This is to play around with graphics generating multiple points on a pane"
+  </description>
+  <organization>
+    <name>HEDgear SoftWare</name>
+    <url>https://findwes-393ac.firebaseapp.com/1</url>
+  </organization>
+  <inceptionYear>1984</inceptionYear>
+</project>
