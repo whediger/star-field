@@ -29,6 +29,14 @@ public class GamePanel extends JPanel {
     super.paintComponent(g);
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, WIDTH, HEIGHT);
+    draw(g);
+  }
+
+  private void draw(Graphics g){
+      drawStars(g);
+  }
+
+  private void drawStars(Graphics g) {
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());
       g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
