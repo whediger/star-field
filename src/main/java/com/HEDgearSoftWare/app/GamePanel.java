@@ -13,6 +13,7 @@ public class GamePanel extends JPanel {
 
   public static final int WIDTH = (int)(640*1.5);
   public static final int HEIGHT = (int)(480*1.5);
+  public Stars[] stars = new Stars[8000];
 
   public GamePanel(){
     super();
@@ -20,25 +21,18 @@ public class GamePanel extends JPanel {
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setFocusable(true);
     requestFocus();
+    for(int i = 0; i < 8000; i++)
+      stars[i] = new Stars(WIDTH, HEIGHT);
   }
 
   public void paintComponent(Graphics g){
     super.paintComponent(g);
-
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, WIDTH, HEIGHT);
-    for (int i = 0; i < 8000; i++) {
-    Random rand = new Random();
-    Color randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-    g.setColor(randomColor);
-
-      int x = Math.abs(rand.nextInt() % WIDTH);
-      int y = Math.abs(rand.nextInt() % HEIGHT);
-      int r = rand.nextInt(2);
-      if(i % 75 == 0) r = rand.nextInt(5);
-      g.drawOval(x, y, r, r);
-      if(r >= 1) g.fillOval(x, y, r, r);
+    for (int i = 0; i < stars.length; i++) {
+      g.setColor(stars[i].getColor());
+      g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
+      if(stars[i].getRadius() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
     }
   }
-
 }
