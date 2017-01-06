@@ -27,20 +27,32 @@ public class GamePanel extends JPanel {
 
   public void paintComponent(Graphics g){
     super.paintComponent(g);
-    g.setColor(Color.BLACK);
-    g.fillRect(0, 0, WIDTH, HEIGHT);
+
     draw(g);
   }
 
   private void draw(Graphics g){
       drawStars(g);
+      Toolkit.getDefaultToolkit().sync();
   }
 
   private void drawStars(Graphics g) {
+    g.setColor(Color.BLACK);
+    g.fillRect(0, 0, WIDTH, HEIGHT);
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());
       g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
       if(stars[i].getRadius() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getRadius(), stars[i].getRadius());
+    }
+  }
+
+  protected void moveStars(){
+    for (int i = 0; i < stars.length; i++) {
+      stars[i].setY(stars[i].getY() + 1);
+      if(stars[i].getY() >= HEIGHT){
+        stars[i] = new Stars(WIDTH, HEIGHT);
+        stars[i].setY(0);
+      }
     }
   }
 }

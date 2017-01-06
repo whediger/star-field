@@ -8,12 +8,16 @@ public class Game {
 
   public static void main(String args[])
   {
+    GamePanel gamePanel = new GamePanel();
+
     JFrame window = new JFrame("bitsNpieces graphics");
-    window.setContentPane(new GamePanel());
+    window.setContentPane(gamePanel);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
     window.pack();
     window.setLocationRelativeTo(null);
     window.setVisible(true);
+
+    GameController gameController = new GameController(gamePanel);
   }
 }
