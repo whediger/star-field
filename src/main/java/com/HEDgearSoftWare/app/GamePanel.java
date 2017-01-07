@@ -18,6 +18,7 @@ public class GamePanel extends JPanel {
   public static final int HEIGHT = (int)(480*1.5);
   public Stars[] stars = new Stars[50];
   public BufferedImage ship;
+  // Ship newShip = new Ship();
 
   public GamePanel(){
     super();
@@ -68,12 +69,16 @@ public class GamePanel extends JPanel {
       else speed = stars[i].getDiameter();
 
       //handle user input
-      if (pi == pi.RIGHT)
+      if (pi == pi.RIGHT){
         stars[i].setX(stars[i].getX() - speed);
-      if (pi == pi.LEFT)
-        stars[i].setX(stars[i].getX() + speed);
+      }
 
-      //handle stars going off screen
+      if (pi == pi.LEFT){
+        stars[i].setX(stars[i].getX() + speed);
+      }
+
+
+      //handle stars going off bottom
       stars[i].setY(stars[i].getY() + speed);
       //going off bottom
       if(stars[i].getY() >= HEIGHT){
