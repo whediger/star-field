@@ -13,7 +13,7 @@ public class Stars {
   Stars(int width, int height) {
     Random rand = new Random();
 
-    randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+    randomColor = new Color(255 - rand.nextInt(50), 255 - rand.nextInt(50), 255 - rand.nextInt(50));
 
     diameter = rand.nextInt(2) + 1;
     if (rand.nextInt(80) > 50) diameter = rand.nextInt(10);
