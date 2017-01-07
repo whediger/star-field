@@ -14,19 +14,17 @@ import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
 
-  public static final int WIDTH = (int)(640*1.5);
-  public static final int HEIGHT = (int)(480*1.5);
   public Stars[] stars = new Stars[50];
   public Ship ship;
 
   public GamePanel(){
     super();
 
-    setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    setPreferredSize(new Dimension(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue()));
     setFocusable(true);
     requestFocus();
     for(int i = 0; i < stars.length; i++)
-      stars[i] = new Stars(WIDTH, HEIGHT);
+      stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
     ship = new Ship();
   }
@@ -44,12 +42,12 @@ public class GamePanel extends JPanel {
   }
 
   private void drawShip(Graphics g){
-    if(ship != null) g.drawImage(ship.getShip(), (WIDTH/2 - 25), (HEIGHT - 100), 50, 50, null);
+    if(ship != null) g.drawImage(ship.getShip(), ship.getX(), ship.getY(), 50, 50, null);
   }
 
   private void drawStars(Graphics g) {
     g.setColor(Color.BLACK);
-    g.fillRect(0, 0, WIDTH, HEIGHT);
+    g.fillRect(0, 0, ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());
       g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
@@ -82,14 +80,14 @@ public class GamePanel extends JPanel {
       //handle stars going off bottom
       stars[i].setY(stars[i].getY() + speed);
       //going off bottom
-      if(stars[i].getY() >= HEIGHT){
-        stars[i] = new Stars(WIDTH, HEIGHT);
+      if(stars[i].getY() >= ScreenSize.HEIGHT.getValue()){
+        stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
         stars[i].setY(0);
       }
       //going off the sides
       if(stars[i].getX() < -stars[i].getDiameter())
-        stars[i].setX(WIDTH + stars[i].getDiameter());
-      if(stars[i].getX() > stars[i].getDiameter() + WIDTH)
+        stars[i].setX(ScreenSize.WIDTH.getValue() + stars[i].getDiameter());
+      if(stars[i].getX() > stars[i].getDiameter() + ScreenSize.WIDTH.getValue())
         stars[i].setX(-stars[i].getDiameter());
 
     }

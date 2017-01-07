@@ -9,8 +9,15 @@ public class Ship {
   BufferedImage ship[] = new BufferedImage[11];
   private int currentShip = 6;
   private int counter = 0;
+  private int x;
+  private int y;
 
   Ship(){
+
+    x = (ScreenSize.WIDTH.getValue()/2 -25);
+    y = (ScreenSize.HEIGHT.getValue() - 100);
+
+
     int shipNo = -5;
     for (int i = 0; i <= 10; i++) {
       try {
@@ -20,6 +27,14 @@ public class Ship {
       }
       shipNo++;
     }
+  }
+
+  public int getX(){
+    return x;
+  }
+
+  public int getY(){
+    return y;
   }
 
   public BufferedImage getShip(){
