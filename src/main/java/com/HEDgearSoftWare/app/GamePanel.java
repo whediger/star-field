@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
   }
 
   private void drawShip(Graphics g){
-    if(ship != null) g.drawImage(ship, (HEIGHT - 100), (WIDTH/2), null);
+    if(ship != null) g.drawImage(ship, (WIDTH/2 - 25), (HEIGHT - 100), 50, 50, null);
   }
 
   private void drawStars(Graphics g) {
