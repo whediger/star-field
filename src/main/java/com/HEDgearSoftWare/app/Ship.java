@@ -20,7 +20,7 @@ public class Ship {
     x = (ScreenSize.WIDTH.getValue()/2 -25);
     y = (ScreenSize.HEIGHT.getValue() - 100);
     int shipNo = -5;
-    shipSpeed = 10;
+    shipSpeed = 5;
     shipWidth = shipHeight = 50;
 
     for (int i = 0; i <= 10; i++) {

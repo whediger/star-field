@@ -64,12 +64,30 @@ public class GamePanel extends JPanel {
       else speed = stars[i].getDiameter();
 
       //  Player Input  +===}========>
-      if (pi.contains(PlayerInput.RIGHT)){
+      if (pi.contains(PlayerInput.RIGHT) && pi.contains(PlayerInput.UP)){
+        ship.moveShipRight();
+        ship.moveShipRight();
+        ship.moveShipUp();
+        stars[i].setX(stars[i].getX() - speed);
+      } else if (pi.contains(PlayerInput.RIGHT) && pi.contains(PlayerInput.DOWN)){
+        ship.moveShipRight();
+        ship.moveShipRight();
+        ship.moveShipDown();
+        stars[i].setX(stars[i].getX() - speed);
+      } else if (pi.contains(PlayerInput.RIGHT)){
         ship.moveShipRight();
         stars[i].setX(stars[i].getX() - speed);
       }
 
-      if (pi.contains(PlayerInput.LEFT)){
+      if (pi.contains(PlayerInput.LEFT) && pi.contains(PlayerInput.UP)){
+        ship.moveShipLeft();
+        ship.moveShipLeft();
+        ship.moveShipUp();
+      } else if (pi.contains(PlayerInput.LEFT) && pi.contains(PlayerInput.DOWN)){
+        ship.moveShipLeft();
+        ship.moveShipLeft();
+        ship.moveShipDown();
+      } else if (pi.contains(PlayerInput.LEFT)){
         ship.moveShipLeft();
         stars[i].setX(stars[i].getX() + speed);
       }
