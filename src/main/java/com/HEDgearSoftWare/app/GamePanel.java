@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Font;
+import java.util.*;
 import java.util.Random;
 import javax.swing.JPanel;
 
@@ -56,32 +57,32 @@ public class GamePanel extends JPanel {
     }
   }
 
-  public void move(PlayerInput pi){
+  public void move(Set pi){
     for (int i = 0; i < stars.length; i++) {
       int speed;
       if (stars[i].getDiameter() == 0) speed = 1;
       else speed = stars[i].getDiameter();
 
       //  Player Input  +===}========>
-      if (pi == pi.RIGHT){
+      if (pi.contains(PlayerInput.RIGHT)){
         ship.moveShipRight();
         stars[i].setX(stars[i].getX() - speed);
       }
 
-      if (pi == pi.LEFT){
+      if (pi.contains(PlayerInput.LEFT)){
         ship.moveShipLeft();
         stars[i].setX(stars[i].getX() + speed);
       }
 
-      if (pi == pi.UP){
+      if (pi.contains(PlayerInput.UP)){
         ship.moveShipUp();
       }
 
-      if (pi == pi.DOWN){
+      if (pi.contains(PlayerInput.DOWN)){
         ship.moveShipDown();
       }
 
-      if (pi == pi.NONE){
+      if (pi.contains(PlayerInput.NONE)){
         ship.moveToCenter();
       }
 
