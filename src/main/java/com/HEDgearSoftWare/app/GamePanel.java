@@ -17,8 +17,7 @@ public class GamePanel extends JPanel {
   public static final int WIDTH = (int)(640*1.5);
   public static final int HEIGHT = (int)(480*1.5);
   public Stars[] stars = new Stars[50];
-  public BufferedImage ship;
-  // Ship newShip = new Ship();
+  public Ship ship;
 
   public GamePanel(){
     super();
@@ -29,11 +28,7 @@ public class GamePanel extends JPanel {
     for(int i = 0; i < stars.length; i++)
       stars[i] = new Stars(WIDTH, HEIGHT);
 
-    try {
-      ship = ImageIO.read(this.getClass().getResource("resources/Ship/ship0.png"));
-    } catch (IOException exc){
-      System.out.println("Error: failure to load ship image - " + exc);
-    }
+    ship = new Ship();
   }
 
   public void paintComponent(Graphics g){
@@ -49,7 +44,7 @@ public class GamePanel extends JPanel {
   }
 
   private void drawShip(Graphics g){
-    if(ship != null) g.drawImage(ship, (WIDTH/2 - 25), (HEIGHT - 100), 50, 50, null);
+    if(ship != null) g.drawImage(ship.getShip(), (WIDTH/2 - 25), (HEIGHT - 100), 50, 50, null);
   }
 
   private void drawStars(Graphics g) {

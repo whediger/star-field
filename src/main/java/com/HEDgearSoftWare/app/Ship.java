@@ -7,20 +7,32 @@ import java.awt.image.BufferedImage;
 public class Ship {
 
   BufferedImage ship[] = new BufferedImage[11];
+  private int currentShip = 5;
 
-  Ship() {
+
+  Ship(){
     int shipNo = -5;
-    for (int i = 0; i == 11; i++) {
+    for (int i = 0; i <= 10; i++) {
       try {
         ship[i] = ImageIO.read(this.getClass().getResource("resources/Ship/ship" + shipNo + ".png"));
+        System.out.println("resources/Ship/ship" + shipNo + ".png");
       } catch (IOException exc){
         System.out.println("Error loading ship array - " + exc);
       }
+      System.out.println(shipNo);
       shipNo++;
     }
   }
 
-  public BufferedImage getShip(int n){
-    return ship[n];
+  public BufferedImage getShip(){
+    return ship[currentShip];
+  }
+
+  public void moveShipRight(){
+    if(currentShip < 10) currentShip++;
+  }
+
+  public void moveShipLeft(){
+    if(currentShip > 0) currentShip--;
   }
 }
