@@ -42,7 +42,8 @@ public class GamePanel extends JPanel {
   }
 
   private void drawShip(Graphics g){
-    if(ship != null) g.drawImage(ship.getShip(), ship.getX(), ship.getY(), 50, 50, null);
+    if(ship != null) g.drawImage(ship.getShip(), ship.getX(),
+                ship.getY(), ship.getShipWidth(), ship.getShipHeight(), null);
   }
 
   private void drawStars(Graphics g) {
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel {
       if (stars[i].getDiameter() == 0) speed = 1;
       else speed = stars[i].getDiameter();
 
-      //handle user input
+      //  Player Input  +===}========>
       if (pi == pi.RIGHT){
         ship.moveShipRight();
         stars[i].setX(stars[i].getX() - speed);
@@ -72,10 +73,19 @@ public class GamePanel extends JPanel {
         stars[i].setX(stars[i].getX() + speed);
       }
 
+      if (pi == pi.UP){
+        ship.moveShipUp();
+      }
+
+      if (pi == pi.DOWN){
+        ship.moveShipDown();
+      }
+
       if (pi == pi.NONE){
         ship.moveToCenter();
       }
 
+      // Background movement (passive movement)  +===}========>
 
       //handle stars going off bottom
       stars[i].setY(stars[i].getY() + speed);

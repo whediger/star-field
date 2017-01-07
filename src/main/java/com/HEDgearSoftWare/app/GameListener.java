@@ -21,13 +21,17 @@ public class GameListener implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e){
-    //39 is right
-    //37 is left
+    //39 is right arrow
+    //37 is left arrow
+    //38 is up arrow
+    //40 is down arrow
     key = e.getKeyCode();
-    //Printline for dev use; retrieving key codes
+    //Printline for dev use: retrieving key codes
     // System.out.println("key pressed: " + e.getKeyCode());
     if (key == 39) input = PlayerInput.RIGHT;
     if (key == 37) input = PlayerInput.LEFT;
+    if (key == 38) input = PlayerInput.UP;
+    if (key == 40) input = PlayerInput.DOWN;
   }
 
   @Override
