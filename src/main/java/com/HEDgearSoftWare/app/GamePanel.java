@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.util.Random;
 import javax.swing.JPanel;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 
 public class GamePanel extends JPanel {
@@ -14,6 +17,7 @@ public class GamePanel extends JPanel {
   public static final int WIDTH = (int)(640*1.5);
   public static final int HEIGHT = (int)(480*1.5);
   public Stars[] stars = new Stars[50];
+  public BufferedImage ship;
 
   public GamePanel(){
     super();
@@ -23,6 +27,12 @@ public class GamePanel extends JPanel {
     requestFocus();
     for(int i = 0; i < stars.length; i++)
       stars[i] = new Stars(WIDTH, HEIGHT);
+
+    try {
+      ship = ImageIO.read(this.getClass().getResource("resources/Ship/ship0.png"));
+    } catch (IOException exc){
+      System.out.println("Error: failure to load ship image - " + exc);
+    }
   }
 
   public void paintComponent(Graphics g){
@@ -33,7 +43,12 @@ public class GamePanel extends JPanel {
 
   private void draw(Graphics g){
       drawStars(g);
+      drawShip(g);
       Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawShip(Graphics g){
+    if(ship != null) g.drawImage(ship, (HEIGHT - 100), (WIDTH/2), null);
   }
 
   private void drawStars(Graphics g) {
@@ -45,9 +60,6 @@ public class GamePanel extends JPanel {
       if(stars[i].getDiameter() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
     }
   }
-
-
-  //protected void moveStars(){ moveStars(PlayerInput.NONE); }
 
   public void moveStars(PlayerInput pi){
     for (int i = 0; i < stars.length; i++) {
