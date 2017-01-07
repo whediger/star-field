@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
     }
   }
 
-  public void moveStars(PlayerInput pi){
+  public void move(PlayerInput pi){
     for (int i = 0; i < stars.length; i++) {
       int speed;
       if (stars[i].getDiameter() == 0) speed = 1;

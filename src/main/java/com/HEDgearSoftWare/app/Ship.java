@@ -15,11 +15,9 @@ public class Ship {
     for (int i = 0; i <= 10; i++) {
       try {
         ship[i] = ImageIO.read(this.getClass().getResource("resources/Ship/ship" + shipNo + ".png"));
-        System.out.println("resources/Ship/ship" + shipNo + ".png");
       } catch (IOException exc){
         System.out.println("Error loading ship array - " + exc);
       }
-      System.out.println(shipNo);
       shipNo++;
     }
   }

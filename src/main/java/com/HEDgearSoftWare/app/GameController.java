@@ -19,12 +19,12 @@ public class GameController {
   private void runGame(){
     while(true){
 
-      gamePanel.moveStars(gameListener.getInput());
+      gamePanel.move(gameListener.getInput());
       gamePanel.repaint();
       checkCollision.checkPanel(gamePanel);
       try{ Thread.sleep(15); }
       catch(InterruptedException exc) {
-        System.out.println("Error: " + exc);
+        System.out.println("Error sleeping in controller: " + exc);
       }
     }
   }
