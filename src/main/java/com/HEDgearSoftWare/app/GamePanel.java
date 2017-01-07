@@ -65,11 +65,17 @@ public class GamePanel extends JPanel {
 
       //handle user input
       if (pi == pi.RIGHT){
+        ship.moveShipRight();
         stars[i].setX(stars[i].getX() - speed);
       }
 
       if (pi == pi.LEFT){
+        ship.moveShipLeft();
         stars[i].setX(stars[i].getX() + speed);
+      }
+
+      if (pi == pi.NONE){
+        ship.moveToCenter();
       }
 
 
