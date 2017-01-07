@@ -83,10 +83,12 @@ public class GamePanel extends JPanel {
         ship.moveShipLeft();
         ship.moveShipLeft();
         ship.moveShipUp();
+        stars[i].setX(stars[i].getX() + speed);
       } else if (pi.contains(PlayerInput.LEFT) && pi.contains(PlayerInput.DOWN)){
         ship.moveShipLeft();
         ship.moveShipLeft();
         ship.moveShipDown();
+        stars[i].setX(stars[i].getX() + speed);
       } else if (pi.contains(PlayerInput.LEFT)){
         ship.moveShipLeft();
         stars[i].setX(stars[i].getX() + speed);
