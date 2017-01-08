@@ -22,14 +22,14 @@ public class GamePanel extends JPanel {
   public GamePanel(){
     super();
 
-    setPreferredSize(new Dimension(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue()));
+    setPreferredSize(new Dimension(ScreenSize.WIDTH.getValue(),
+                                    ScreenSize.HEIGHT.getValue()));
     setFocusable(true);
     requestFocus();
     for(int i = 0; i < stars.length; i++)
       stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
     ship = new Ship();
-    laser = new Laser(300, 300);
   }
 
   public void paintComponent(Graphics g){
@@ -38,16 +38,35 @@ public class GamePanel extends JPanel {
     draw(g);
   }
 
+  private boolean laserFired = false;
+  private int startX, startY, originX, originY;
+
   private void draw(Graphics g){
     drawStars(g);
     drawShip(g);
+    if(!laserFired) drawLaser(g);
+    else moveLaser(g);
 
-      for (int i = 0; i < laser.getParticleLength(); i++) {
-        g.setColor(laser.getParticle(i).color);
-        g.drawOval(laser.getParticle(i).x, laser.getParticle(i).y, laser.getParticle(i).size, laser.getParticle(i).size);
-      };
+    Toolkit.getDefaultToolkit().sync();
+  }
 
-      Toolkit.getDefaultToolkit().sync();
+  private void drawLaser(Graphics g){
+    startX = ship.getX() + ship.getShipWidth()/2;
+    startY = ship.getY();
+    originY = ship.getX();
+    laserFired = true;
+    moveLaser(g);
+  }
+
+  private void moveLaser(Graphics g){
+    startY += -15;
+    if (startY <= 0) laserFired = false;
+    laser = new Laser(startX, startY, originY);
+    for (int i = 0; i < laser.getParticleLength(); i++) {
+      g.setColor(laser.getParticle(i).color);
+      g.drawOval(laser.getParticle(i).x, laser.getParticle(i).y,
+                laser.getParticle(i).size, laser.getParticle(i).size);
+    };
   }
 
   private void drawShip(Graphics g){
@@ -60,8 +79,10 @@ public class GamePanel extends JPanel {
     g.fillRect(0, 0, ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());
-      g.drawOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
-      if(stars[i].getDiameter() >= 1) g.fillOval(stars[i].getX(), stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
+      g.drawOval(stars[i].getX(), stars[i].getY(),
+                 stars[i].getDiameter(), stars[i].getDiameter());
+      if(stars[i].getDiameter() >= 1) g.fillOval(stars[i].getX(),
+         stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
     }
   }
 
