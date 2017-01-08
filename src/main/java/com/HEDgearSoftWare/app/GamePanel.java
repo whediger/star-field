@@ -45,11 +45,15 @@ public class GamePanel extends JPanel {
   private void draw(Graphics g){
     drawStars(g);
     drawShip(g);
-    if(laserFired && !laserMoving) drawLaser(g);
+    if(laserFired && !laserMoving){
+      drawLaser(g);
+      Laser.playAudio();
+    }
     if(laserFired && laserMoving) moveLaser(g);
 
     Toolkit.getDefaultToolkit().sync();
   }
+
 
   private void drawLaser(Graphics g){
     startX = ship.getX() + ship.getShipWidth()/2;

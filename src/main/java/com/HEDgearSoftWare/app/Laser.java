@@ -2,6 +2,9 @@ package com.HEDgearSoftWare.app;
 
 import java.awt.*;
 import java.util.Random;
+import java.io.*;
+import sun.audio.*;
+import javax.sound.sampled.*;
 
 
 public class Laser {
@@ -53,6 +56,27 @@ public class Laser {
         if(i % LASER_DENSITY == 0)
            ycount++;
         if(halfCount == halfWidth) halfCount = 0;
+      }
+    }
+
+    public static void playAudio(){
+      try {
+        // InputStream in = new FileInputStream("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav");
+        AudioInputStream ain = AudioSystem.getAudioInputStream(
+    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
+        Clip laserClip = AudioSystem.getClip();
+        laserClip.open(ain);
+        FloatControl volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue(-10.0f);
+        laserClip.start();
+      } catch(FileNotFoundException exc){
+        System.out.println("Error: Laser sound file not found  - " + exc);
+      } catch(IOException exc) {
+        System.out.println("Error: IO Exception - " + exc);
+      } catch (UnsupportedAudioFileException exc){
+        System.out.println(exc);
+      } catch(LineUnavailableException exc){
+        System.out.println(exc);
       }
     }
 

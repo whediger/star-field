@@ -1,11 +1,11 @@
-com/HEDgearSoftWare/app/Game.class
 com/HEDgearSoftWare/app/GameListener.class
-com/HEDgearSoftWare/app/GamePanel.class
-com/HEDgearSoftWare/app/GameController.class
-com/HEDgearSoftWare/app/Stars.class
 com/HEDgearSoftWare/app/ScreenSize.class
 com/HEDgearSoftWare/app/Ship.class
 com/HEDgearSoftWare/app/PlayerInput.class
 com/HEDgearSoftWare/app/Particle.class
 com/HEDgearSoftWare/app/Laser.class
 com/HEDgearSoftWare/app/CheckCollision.class
+com/HEDgearSoftWare/app/Game.class
+com/HEDgearSoftWare/app/GamePanel.class
+com/HEDgearSoftWare/app/GameController.class
+com/HEDgearSoftWare/app/Stars.class
