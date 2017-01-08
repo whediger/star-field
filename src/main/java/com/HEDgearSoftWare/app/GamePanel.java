@@ -75,7 +75,7 @@ public class GamePanel extends JPanel {
   }
 
   private void drawStars(Graphics g) {
-    g.setColor(Color.BLACK);
+    g.setColor(new Color(0, 4, 44));
     g.fillRect(0, 0, ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
     for (int i = 0; i < stars.length; i++) {
       g.setColor(stars[i].getColor());

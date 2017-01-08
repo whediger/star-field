@@ -6,7 +6,7 @@ public class CheckCollision {
 
 
     public void checkPanel(GamePanel panel) {
-
+      
     }
 
 }
