@@ -56,30 +56,26 @@ public class Ship {
     return y;
   }
 
-  public boolean getLaserFired(){
-    return laserFired;
-  }
-
-  public boolean getLaserMoving(){
-    return laserMoving;
-  }
-
-  public void setLaserFired(boolean b){
-    laserFired = b;
-  }
-
-  public void setLaserMoving(boolean b){
-    laserMoving = b;
-  }
-
   public BufferedImage getShip(){
     return ship[currentShip];
   }
 
+  public void draw(Graphics g){
+    if(laserFired && laserMoving)
+      moveLaser(g);
+    if(laserFired && !laserMoving)
+      fireLaser();
+    if(ship != null) g.drawImage(getShip(), x,
+                y, shipWidth, shipHeight, null);
+  }
+
   public void fireLaser(){
-    laser.fire((x + (shipWidth/2)), y + 15);
-    laserFired = true;
-    laserMoving = true;
+    if(!laserFired){
+      laser = new Laser();
+      laser.fire((x + (shipWidth/2)), y + 15);
+      laserFired = true;
+      laserMoving = true;
+    }
   }
 
   public void moveLaser(Graphics g){

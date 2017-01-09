@@ -15,6 +15,7 @@ public class Laser {
     private int originY;
     private int startX;
     private int startY;
+    private final int laserSpeed = 15;
     // private boolean alive;
     private Color color = Color.GREEN;
     private Graphics g;
@@ -27,26 +28,7 @@ public class Laser {
 
     Clip laserClip;
     FloatControl volume;
-
-    public Laser(){
-
-      try {
-        AudioInputStream ain = AudioSystem.getAudioInputStream(
-    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
-        laserClip = AudioSystem.getClip();
-        laserClip.open(ain);
-        volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-10.0f);
-      } catch(FileNotFoundException exc){
-        System.out.println("Error: Laser sound file not found  - " + exc);
-      } catch(IOException exc) {
-        System.out.println("Error: IO Exception - " + exc);
-      } catch (UnsupportedAudioFileException exc){
-        System.out.println(exc);
-      } catch(LineUnavailableException exc){
-        System.out.println(exc);
-      }
-    }
+    AudioInputStream ain;
 
     public int getStartY(){
       return startY;
@@ -55,14 +37,13 @@ public class Laser {
     public void fire(int startX, int startY){
       this.startX = startX;
       this.originX = startX;
-      this.startY = startY;
+      this.startY = startY + laserSpeed;
       this.originY = startY;
       move();
       startAudio();
     }
 
     public void move(){
-      startY += -15;
       Random rand = new Random();
       int ycount = 0;
       int halfWidth = (int)LASER_WIDTH/2;
@@ -87,14 +68,27 @@ public class Laser {
            ycount++;
         if(halfCount == halfWidth) halfCount = 0;
       }
-    }
-
-    public static void playAudio(){
-
+      startY += -laserSpeed;
     }
 
     private void startAudio(){
-      laserClip.start();
+      try {
+        ain = AudioSystem.getAudioInputStream(
+    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
+        laserClip = AudioSystem.getClip();
+        laserClip.open(ain);
+        volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue(-10.0f);
+        laserClip.start();
+      } catch(LineUnavailableException exc){
+        System.out.println(exc);
+      } catch(FileNotFoundException exc){
+        System.out.println("Error: Laser sound file not found  - " + exc);
+      } catch(IOException exc){
+        System.out.println(exc);
+      } catch (UnsupportedAudioFileException exc){
+        System.out.println(exc);
+      }
     }
 
     public void stopAudio(){

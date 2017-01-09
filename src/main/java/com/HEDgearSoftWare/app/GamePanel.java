@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.util.*;
-import java.util.Random;
 import javax.swing.JPanel;
 
 import javax.imageio.ImageIO;
@@ -42,28 +41,9 @@ public class GamePanel extends JPanel {
 
   private void draw(Graphics g){
     drawStars(g);
-    drawShip(g);
-    if(ship.getLaserFired() && !ship.getLaserMoving()){
-      drawLaser(g);
-    }
-    if(ship.getLaserFired() && ship.getLaserMoving()) ship.moveLaser(g);
+    ship.draw(g);
 
     Toolkit.getDefaultToolkit().sync();
-  }
-
-
-  private void drawLaser(Graphics g){
-    ship.setLaserMoving(true);
-    ship.fireLaser();
-  }
-
-
-
-  private void drawShip(Graphics g){
-    if(ship.getLaserFired() && ship.getLaserMoving())
-      ship.moveLaser(g);
-    if(ship != null) g.drawImage(ship.getShip(), ship.getX(),
-                ship.getY(), ship.getShipWidth(), ship.getShipHeight(), null);
   }
 
   private void drawStars(Graphics g) {
@@ -129,10 +109,8 @@ public class GamePanel extends JPanel {
 
       // Fire Laser  +===}========>
 
-      if(pi.contains(PlayerInput.FIRE) && !ship.getLaserFired()) {
+      if(pi.contains(PlayerInput.FIRE))
         ship.fireLaser();
-        ship.setLaserFired(true);
-      }
 
       //
       // Background movement (passive movement)  +===}========>
