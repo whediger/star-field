@@ -1,16 +1,16 @@
 package com.HEDgearSoftWare.app;
 
 
+
 public class GameController {
 
   private GamePanel gamePanel;
   private GameListener gameListener;
   private CheckCollision checkCollision;
-  private ThemeMusic themeMusic;
   private String input;
 
   GameController(GamePanel gp){
-    themeMusic = new ThemeMusic();
+    (new Thread(new ThemeMusic())).start();
     gamePanel = gp;
     gameListener = new GameListener(gp);
     checkCollision = new CheckCollision();
