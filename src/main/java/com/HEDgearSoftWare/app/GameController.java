@@ -18,7 +18,6 @@ public class GameController {
   // the game loop   +===}========>
   private void runGame(){
     while(true){
-
       gamePanel.move(gameListener.getInput());
       gamePanel.repaint();
       checkCollision.checkPanel(gamePanel);

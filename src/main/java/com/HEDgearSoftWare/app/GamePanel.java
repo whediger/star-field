@@ -7,10 +7,6 @@ import java.awt.Font;
 import java.util.*;
 import javax.swing.JPanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-
 
 public class GamePanel extends JPanel {
 
@@ -37,8 +33,6 @@ public class GamePanel extends JPanel {
     draw(g);
   }
 
-  private int startX, startY, originX, originY;
-
   private void draw(Graphics g){
     drawStars(g);
     ship.draw(g);
@@ -64,7 +58,7 @@ public class GamePanel extends JPanel {
       if (stars[i].getDiameter() == 0) speed = 1;
       else speed = stars[i].getDiameter();
 
-      //  Player Input  +===}========>
+      //  Player Input  +===]========>
       if (pi.contains(PlayerInput.RIGHT) && pi.contains(PlayerInput.UP)){
         ship.moveShipRight();
         ship.moveShipRight();
@@ -107,13 +101,8 @@ public class GamePanel extends JPanel {
         ship.moveToCenter();
       }
 
-      // Fire Laser  +===}========>
-
-      if(pi.contains(PlayerInput.FIRE))
-        ship.fireLaser();
-
       //
-      // Background movement (passive movement)  +===}========>
+      // Background movement (passive movement)  +===]========>
       //
 
       //handle stars going off bottom
@@ -130,5 +119,10 @@ public class GamePanel extends JPanel {
         stars[i].setX(-stars[i].getDiameter());
 
     }
+
+    // Fire Laser  +===]========>
+
+    if(pi.contains(PlayerInput.FIRE))
+      ship.fireLaser();
   }
 }

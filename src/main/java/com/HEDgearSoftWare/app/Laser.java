@@ -6,7 +6,6 @@ import java.io.*;
 import sun.audio.*;
 import javax.sound.sampled.*;
 
-
 public class Laser {
 
     private int x;
@@ -41,6 +40,14 @@ public class Laser {
       this.originY = startY;
       move();
       startAudio();
+    }
+
+    public void draw(Graphics g){
+      for (int i = 0; i < laser.length; i++) {
+        g.setColor(laser[i].color);
+        g.drawOval(laser[i].x, laser[i].y,
+                  laser[i].size, laser[i].size);
+      };
     }
 
     public void move(){

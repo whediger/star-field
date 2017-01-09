@@ -81,12 +81,7 @@ public class Ship {
   public void moveLaser(Graphics g){
     laser.move();
     if (laser.getStartY() <= 0) laserFired = laserMoving = false;
-      for (int i = 0; i < laser.getParticleLength(); i++) {
-        g.setColor(laser.getParticle(i).color);
-        g.drawOval(laser.getParticle(i).x, laser.getParticle(i).y,
-                  laser.getParticle(i).size, laser.getParticle(i).size);
-      };
-
+    laser.draw(g);
   }
 
   public void moveShipRight(){
