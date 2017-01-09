@@ -15,7 +15,7 @@ public class Laser {
     private int originY;
     private int startX;
     private int startY;
-    private int life = 1;
+    // private boolean alive;
     private Color color = Color.GREEN;
     private Graphics g;
     private static final int PARTICLE_COUNT = 1000;
@@ -24,15 +24,45 @@ public class Laser {
     private static final int LASER_DENSITY = (int)(PARTICLE_COUNT/LASER_LENGTH);
     private static final int LASER_WIDTH = 30;
 
-    public Laser(int startX, int startY, int originY){
-      this.startX = startX;
-      this.originX = originX;
-      this.startY = startY;
-      this.originY = originY;
-      init();
+
+    Clip laserClip;
+    FloatControl volume;
+
+    public Laser(){
+
+      try {
+        AudioInputStream ain = AudioSystem.getAudioInputStream(
+    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
+        laserClip = AudioSystem.getClip();
+        laserClip.open(ain);
+        volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue(-10.0f);
+      } catch(FileNotFoundException exc){
+        System.out.println("Error: Laser sound file not found  - " + exc);
+      } catch(IOException exc) {
+        System.out.println("Error: IO Exception - " + exc);
+      } catch (UnsupportedAudioFileException exc){
+        System.out.println(exc);
+      } catch(LineUnavailableException exc){
+        System.out.println(exc);
+      }
     }
 
-    public void init(){
+    public int getStartY(){
+      return startY;
+    }
+
+    public void fire(int startX, int startY){
+      this.startX = startX;
+      this.originX = startX;
+      this.startY = startY;
+      this.originY = startY;
+      move();
+      startAudio();
+    }
+
+    public void move(){
+      startY += -15;
       Random rand = new Random();
       int ycount = 0;
       int halfWidth = (int)LASER_WIDTH/2;
@@ -60,24 +90,15 @@ public class Laser {
     }
 
     public static void playAudio(){
-      try {
-        // InputStream in = new FileInputStream("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav");
-        AudioInputStream ain = AudioSystem.getAudioInputStream(
-    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
-        Clip laserClip = AudioSystem.getClip();
-        laserClip.open(ain);
-        FloatControl volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-10.0f);
-        laserClip.start();
-      } catch(FileNotFoundException exc){
-        System.out.println("Error: Laser sound file not found  - " + exc);
-      } catch(IOException exc) {
-        System.out.println("Error: IO Exception - " + exc);
-      } catch (UnsupportedAudioFileException exc){
-        System.out.println(exc);
-      } catch(LineUnavailableException exc){
-        System.out.println(exc);
-      }
+
+    }
+
+    private void startAudio(){
+      laserClip.start();
+    }
+
+    public void stopAudio(){
+      laserClip.stop();
     }
 
     public int getParticleLength(){

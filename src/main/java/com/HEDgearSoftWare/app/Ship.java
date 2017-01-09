@@ -3,6 +3,7 @@ package com.HEDgearSoftWare.app;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
 public class Ship {
 
@@ -15,7 +16,13 @@ public class Ship {
   private int shipWidth;
   private int shipHeight;
 
+  Laser laser;
+  private boolean laserFired;
+  private boolean laserMoving;
+
   Ship(){
+
+    laser  = new Laser();
 
     x = (ScreenSize.WIDTH.getValue()/2 -25);
     y = (ScreenSize.HEIGHT.getValue() - 100);
@@ -49,8 +56,41 @@ public class Ship {
     return y;
   }
 
+  public boolean getLaserFired(){
+    return laserFired;
+  }
+
+  public boolean getLaserMoving(){
+    return laserMoving;
+  }
+
+  public void setLaserFired(boolean b){
+    laserFired = b;
+  }
+
+  public void setLaserMoving(boolean b){
+    laserMoving = b;
+  }
+
   public BufferedImage getShip(){
     return ship[currentShip];
+  }
+
+  public void fireLaser(){
+    laser.fire((x + (shipWidth/2)), y + 15);
+    laserFired = true;
+    laserMoving = true;
+  }
+
+  public void moveLaser(Graphics g){
+    laser.move();
+    if (laser.getStartY() <= 0) laserFired = laserMoving = false;
+      for (int i = 0; i < laser.getParticleLength(); i++) {
+        g.setColor(laser.getParticle(i).color);
+        g.drawOval(laser.getParticle(i).x, laser.getParticle(i).y,
+                  laser.getParticle(i).size, laser.getParticle(i).size);
+      };
+
   }
 
   public void moveShipRight(){

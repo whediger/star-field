@@ -38,42 +38,30 @@ public class GamePanel extends JPanel {
     draw(g);
   }
 
-  private boolean laserFired = false;
-  private boolean laserMoving = false;
   private int startX, startY, originX, originY;
 
   private void draw(Graphics g){
     drawStars(g);
     drawShip(g);
-    if(laserFired && !laserMoving){
+    if(ship.getLaserFired() && !ship.getLaserMoving()){
       drawLaser(g);
-      Laser.playAudio();
     }
-    if(laserFired && laserMoving) moveLaser(g);
+    if(ship.getLaserFired() && ship.getLaserMoving()) ship.moveLaser(g);
 
     Toolkit.getDefaultToolkit().sync();
   }
 
 
   private void drawLaser(Graphics g){
-    startX = ship.getX() + ship.getShipWidth()/2;
-    startY = ship.getY();
-    originY = ship.getX();
-    laserMoving = true;
+    ship.setLaserMoving(true);
+    ship.fireLaser();
   }
 
-  private void moveLaser(Graphics g){
-    startY += -15;
-    if (startY <= 0) laserFired = laserMoving = false;
-    laser = new Laser(startX, startY, originY);
-    for (int i = 0; i < laser.getParticleLength(); i++) {
-      g.setColor(laser.getParticle(i).color);
-      g.drawOval(laser.getParticle(i).x, laser.getParticle(i).y,
-                laser.getParticle(i).size, laser.getParticle(i).size);
-    };
-  }
+
 
   private void drawShip(Graphics g){
+    if(ship.getLaserFired() && ship.getLaserMoving())
+      ship.moveLaser(g);
     if(ship != null) g.drawImage(ship.getShip(), ship.getX(),
                 ship.getY(), ship.getShipWidth(), ship.getShipHeight(), null);
   }
@@ -141,9 +129,14 @@ public class GamePanel extends JPanel {
 
       // Fire Laser  +===}========>
 
-      if(pi.contains(PlayerInput.FIRE)) laserFired = true;
+      if(pi.contains(PlayerInput.FIRE) && !ship.getLaserFired()) {
+        ship.fireLaser();
+        ship.setLaserFired(true);
+      }
 
+      //
       // Background movement (passive movement)  +===}========>
+      //
 
       //handle stars going off bottom
       stars[i].setY(stars[i].getY() + speed);
