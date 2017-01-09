@@ -46,6 +46,4 @@ public class Stars {
   public Color getColor(){
     return randomColor;
   }
-
-
 }

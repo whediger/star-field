@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 
-  public Stars[] stars = new Stars[50];
+  Stars stars[] = new Stars[50];
   public Ship ship;
   Laser laser;
 
