@@ -12,7 +12,10 @@ _The parameter is that the game needs to retain a balance of playability and inc
 _the strategy is to keep the enemies from passing you to your Mothership and avoid self destruction_
 
 ##TODO:
-* add soundtracks to an array, iterate through the array and then shuffle after playing all the songs and play again.
+* be able to toggle theme music on/off -'M'- and adjust volume '-' and '+'
+* create randomly generated enemy behaviour once generated consistent for that enemy
+* create randomly generated enemy formations, cooperative behaviour
+* create weapons. 3 modules of 10 components gives 1000 possible weapon types
 * add weight/physics to cause ship to change direction in more realistic way.
 * make stars move slower when player is moving down and faster when player is moving up. (1px?)
 * create randomly generated enemy behaviour once generated consistent for that enemy
@@ -20,11 +23,11 @@ _the strategy is to keep the enemies from passing you to your Mothership and avo
 * create weapons. 3 modules of 10 components gives 1000 possible weapon types
 * create super weapons for Bosses and player.
 * Add explosions.
-* Use Particles?
-* or randomly splice exploding ship image
-* Use size of image splice to adjust velocity away from explosion and life of particle
-* perhaps redivide and explode splices above certain size
-* or Both particles and fragments.
+	* Use Particles?
+	* or randomly splice exploding ship image
+	* Use size of image splice to adjust velocity away from explosion and life of particle
+	* perhaps redivide and explode splices above certain size
+	* or Both particles and fragments.
 * Add ship thrusters
 	* thrusters only on when player moves forward?
 	* use particles with life to leave trail of exhaust
