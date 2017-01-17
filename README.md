@@ -13,9 +13,6 @@ _the strategy is to keep the enemies from passing you to your Mothership and avo
 
 ##TODO:
 * be able to toggle theme music on/off -'M'- and adjust volume '-' and '+'
-* create randomly generated enemy behaviour once generated consistent for that enemy
-* create randomly generated enemy formations, cooperative behaviour
-* create weapons. 3 modules of 10 components gives 1000 possible weapon types
 * add weight/physics to cause ship to change direction in more realistic way.
 * make stars move slower when player is moving down and faster when player is moving up. (1px?)
 * create randomly generated enemy behaviour once generated consistent for that enemy
