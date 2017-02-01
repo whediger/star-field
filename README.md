@@ -12,10 +12,10 @@ _The parameter is that the game needs to retain a balance of playability and inc
 _the strategy is to keep the enemies from passing you to your Mothership and avoid self destruction_
 
 ##To Run
- * these instructions use *Maven* 
+ * these instructions use **Maven** 
  * you must have Java installed on your machine
  * download repo
- * navigate to directory containing the pom file
+ * navigate to directory containing the pom file (top directory)
  * enter in commandline: mvn exec:java -Dexec.mainClass="com.HEDgearSoftWare.app.Game" -e
 
 ##TODO:
