@@ -11,6 +11,13 @@ _the goal has become to create a never ending randomly generated space game_
 _The parameter is that the game needs to retain a balance of playability and increasing difficulty_
 _the strategy is to keep the enemies from passing you to your Mothership and avoid self destruction_
 
+**To Run
+	* these instructions use *Maven* 
+	* you must have Java installed on your machine
+	* download repo
+	* navigate to directory containing the pom file
+	* enter in commandline: mvn exec:java -Dexec.mainClass="com.HEDgearSoftWare.app.Game" -e
+
 ##TODO:
 * be able to toggle theme music on/off -'M'- and adjust volume '-' and '+'
 * add weight/physics to cause ship to change direction in more realistic way.
