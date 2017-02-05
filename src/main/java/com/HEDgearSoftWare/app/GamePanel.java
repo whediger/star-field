@@ -12,6 +12,7 @@ public class GamePanel extends JPanel {
 
   Stars stars[] = new Stars[50];
   public Ship ship;
+  public EnemyShip enemyShip;
   Laser laser;
 
   public GamePanel(){
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel {
       stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
     ship = new Ship();
+    enemyShip = new EnemyShip();
   }
 
   public void paintComponent(Graphics g){
@@ -36,6 +38,7 @@ public class GamePanel extends JPanel {
   private void draw(Graphics g){
     drawStars(g);
     ship.draw(g);
+    enemyShip.draw(g);
 
     Toolkit.getDefaultToolkit().sync();
   }
