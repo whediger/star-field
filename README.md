@@ -12,6 +12,8 @@ _The parameter is that the game needs to retain a balance of playability and inc
 _the strategy is to keep the enemies from passing you to your Mothership and avoid self destruction_
 
 ##TODO:
+* add pause button 'P'
+* need to use a less intrusive sound for the players laser because if the player is used to a noisy sound it will be difficult for the other stimulus to make an impact. => loss of BOSS enemy effect. (Human senses are designed to detect change. Use it to have an ebb and flow)
 * be able to toggle theme music on/off -'M'- and adjust volume '-' and '+'
 * create randomly generated enemy behaviour once generated consistent for that enemy
 * create randomly generated enemy formations, cooperative behaviour
