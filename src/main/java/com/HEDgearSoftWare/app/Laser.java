@@ -33,6 +33,14 @@ public class Laser {
       return startY;
     }
 
+    public int getStartX() {
+      return startX;
+    }
+
+    public int getLength() {
+      return LASER_LENGTH;
+    }
+
     public void fire(int startX, int startY){
       this.startX = startX;
       this.originX = startX;
@@ -66,7 +74,7 @@ public class Laser {
         } else {
           x = startX + ((rand.nextInt(halfWidth-halfCount)) * sign);
         }
-        //startY - length, creates laser from start point upward;
+        //startY - length, creates laser from start point at ship upward;
         y = startY - ycount - 1;
         Particle p = new Particle(x, y, 1, color);
         laser[i] = p;

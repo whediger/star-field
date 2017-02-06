@@ -15,7 +15,6 @@ public class EnemyShip {
   private int shipHeight;
 
   EnemyShip() {
-    System.out.println("enemy ship loaded");
     x = (int)(ScreenSize.WIDTH.getValue()/2);
     y = 100;
     shipWidth = 50;
