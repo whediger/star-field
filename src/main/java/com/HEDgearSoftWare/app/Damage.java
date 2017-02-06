@@ -9,16 +9,21 @@ class Damage {
 
   int x;
   int y;
+  int shipWidth;
+  int shipHeight;
   int damageCount;
   BufferedImage boom[] = new BufferedImage[90];
+  boolean active;
 
-  public Damage(int x, int y){
+  public Damage(int shipWidth, int shipHeight){
       this.x = x;
       this.y = y;
+      this.shipWidth = shipWidth;
+      this.shipHeight = shipHeight;
       this.damageCount = 0;
+      this.active = true;
 
-      System.out.println("position x: " + this.x);
-      System.out.println("position y: " + this.y);
+
       try {
         for (int i = 1; i < 90; i++) {
             boom[i] = ImageIO.read(this.getClass().getResource("resources/damageImages/explosion1_" + i + ".png"));
@@ -28,13 +33,21 @@ class Damage {
       }
   }
 
+  public void create(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
   public BufferedImage getBoom() {
     ++damageCount;
-    if(damageCount == 90) damageCount = 0;
+    if(damageCount == 90) {
+      active = false;
+      damageCount = 0;
+    }
     return boom[damageCount];
   }
 
   public void draw(Graphics g){
-    g.drawImage(getBoom(), x, y, 64, 48, null);
+    if(active) g.drawImage(getBoom(), x, y, shipWidth, shipHeight, null);
   }
 }

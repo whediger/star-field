@@ -14,6 +14,7 @@ public class EnemyShip {
   private int shipWidth;
   private int shipHeight;
   private boolean hit;
+  private boolean destroyed;
   Damage damage;
 
   EnemyShip() {
@@ -21,6 +22,8 @@ public class EnemyShip {
     y = 100;
     shipWidth = 50;
     shipHeight = 75;
+    destroyed = hit = false;
+    damage = new Damage(shipWidth, shipHeight);
 
     try {
       enemyShip[0] = ImageIO.read(this.getClass().getResource("resources/badShips/drone.png"));
@@ -53,14 +56,19 @@ public class EnemyShip {
     return enemyShip[0];
   }
 
-  public void hit(int x, int y){
-    damage = new Damage((x - (shipWidth/2)), (y - (shipHeight/2)));
+  public void hit(){
+    damage.create(x, y);
     hit = true;
+    destroyed = true;
   }
 
   public void draw(Graphics g) {
-    if(enemyShip[0] != null) {
-      g.drawImage(getShip(), x, y, shipWidth, shipHeight, null);
+    if(!destroyed){
+      if(enemyShip[0] != null) {
+        g.drawImage(getShip(), x, y, shipWidth, shipHeight, null);
+      }
+    } else {
+      //destroy ship here!!!
     }
     if(hit) damage.draw(g);
   }
