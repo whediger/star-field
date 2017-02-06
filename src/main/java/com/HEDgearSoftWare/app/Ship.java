@@ -86,10 +86,11 @@ public class Ship {
 
   public boolean checkLaserHit(int x1In, int x2In, int y1In, int y2In) {
     for (int i = 0; i < laser.getLength(); i++) {
-      if (x1In <= laser.getStartX() &&
-          laser.getStartX() <= x2In &&
-          y1In <= laser.getStartY() &&
-          (laser.getStartY() - laser.getLength()) <= y2In) {
+      if (x1In <= laser.getStartX()
+      && laser.getStartX() <= x2In
+      && y1In <= laser.getStartY()
+      && (laser.getStartY() - (laser.getLength()/2)) <= y2In) {
+        laserFired = laserMoving = false;
         return true;
       }
     }

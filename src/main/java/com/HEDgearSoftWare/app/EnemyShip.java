@@ -13,6 +13,7 @@ public class EnemyShip {
   private int shipSpeed;
   private int shipWidth;
   private int shipHeight;
+  private boolean hit;
 
   EnemyShip() {
     x = (int)(ScreenSize.WIDTH.getValue()/2);
@@ -43,8 +44,17 @@ public class EnemyShip {
     return y;
   }
 
+  public boolean getIsHit(){
+    return hit;
+  }
+
   public BufferedImage getShip() {
     return enemyShip[0];
+  }
+
+  public void hit(int x, int y){
+    Damage damage = new Damage(x, y);
+    hit = true;
   }
 
   public void draw(Graphics g) {
