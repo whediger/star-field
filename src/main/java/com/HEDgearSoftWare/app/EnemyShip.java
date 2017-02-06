@@ -14,6 +14,7 @@ public class EnemyShip {
   private int shipWidth;
   private int shipHeight;
   private boolean hit;
+  Damage damage;
 
   EnemyShip() {
     x = (int)(ScreenSize.WIDTH.getValue()/2);
@@ -53,7 +54,7 @@ public class EnemyShip {
   }
 
   public void hit(int x, int y){
-    Damage damage = new Damage(x, y);
+    damage = new Damage((x - (shipWidth/2)), (y - (shipHeight/2)));
     hit = true;
   }
 
@@ -61,5 +62,6 @@ public class EnemyShip {
     if(enemyShip[0] != null) {
       g.drawImage(getShip(), x, y, shipWidth, shipHeight, null);
     }
+    if(hit) damage.draw(g);
   }
 }

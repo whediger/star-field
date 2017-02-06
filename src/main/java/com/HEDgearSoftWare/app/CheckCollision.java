@@ -14,7 +14,7 @@ public class CheckCollision {
           panel.enemyShip.getY(),
           (panel.enemyShip.getY() + panel.enemyShip.getShipHeight()));
       if(hit) {
-        panel.enemyShip.hit((panel.enemyShip.getX() + (panel.enemyShip.getShipWidth()/2)),
+        panel.enemyShip.hit((panel.ship.laser.getStartX()),
                             (panel.enemyShip.getY() + (panel.enemyShip.getShipHeight())/2));
       }
     }
