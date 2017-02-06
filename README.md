@@ -11,13 +11,17 @@ _the goal has become to create a never ending randomly generated space game_
 _The parameter is that the game needs to retain a balance of playability and increasing difficulty_
 _the strategy is to keep the enemies from passing you to your Mothership and avoid self destruction_
 
+##To Run
+ * these instructions use **Maven** 
+ * you must have Java installed on your machine
+ * download repo
+ * navigate to directory containing the pom file (top directory)
+ * enter in commandline: mvn exec:java -Dexec.mainClass="com.HEDgearSoftWare.app.Game" -e
+
 ##TODO:
 * add pause button 'P'
 * need to use a less intrusive sound for the players laser because if the player is used to a noisy sound it will be difficult for the other stimulus to make an impact. => loss of BOSS enemy effect. (Human senses are designed to detect change. Use it to have an ebb and flow)
 * be able to toggle theme music on/off -'M'- and adjust volume '-' and '+'
-* create randomly generated enemy behaviour once generated consistent for that enemy
-* create randomly generated enemy formations, cooperative behaviour
-* create weapons. 3 modules of 10 components gives 1000 possible weapon types
 * add weight/physics to cause ship to change direction in more realistic way.
 * make stars move slower when player is moving down and faster when player is moving up. (1px?)
 * create randomly generated enemy behaviour once generated consistent for that enemy
