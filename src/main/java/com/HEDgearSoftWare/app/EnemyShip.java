@@ -4,12 +4,19 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class EnemyShip {
 
   BufferedImage enemyShip[] = new BufferedImage[1];
   private int x;
   private int y;
+  private int xPosy;
+  private int yPosy;
+  private double rads;
+  private float radius;
+  private int wobbleDir;
+  private int degress;
   private int shipSpeed;
   private int shipWidth;
   private int shipHeight;
@@ -20,6 +27,12 @@ public class EnemyShip {
   EnemyShip(int x, int y) {
     this.x = x;
     this.y = y;
+    Random rand = new Random();
+    degress = rand.nextInt(360);
+    if(rand.nextInt(2) == 1) wobbleDir = -1;
+    else wobbleDir = 1;
+    rads = Math.toRadians(degress - 90); //0 becomes the top
+    radius = 2; //radius of ship wobble
     shipWidth = 50;
     shipHeight = 75;
     destroyed = hit = false;
@@ -67,9 +80,14 @@ public class EnemyShip {
   }
 
   public void draw(Graphics g) {
+    rads = Math.toRadians(degress - 90); //0 becomes the top
+    xPosy = Math.round((float) (x + Math.cos(rads) * radius));
+    yPosy = Math.round((float) (y + Math.sin(rads) * radius));
+    if(degress == 360) degress = 0;
+    degress += wobbleDir * 10;
     if(!destroyed){
       if(enemyShip[0] != null) {
-        g.drawImage(getShip(), x, y, shipWidth, shipHeight, null);
+        g.drawImage(getShip(), xPosy, yPosy, shipWidth, shipHeight, null);
       }
     } else {
       //destroy ship here!!!

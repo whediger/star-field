@@ -14,7 +14,7 @@ public class GamePanel extends JPanel {
   public Ship ship;
   public EnemyShip[] enemyShips = new EnemyShip[9];
   Laser laser;
-  public boolean isEnemies = false;
+  public boolean isEnemies = true;
 
   public GamePanel(){
     super();
