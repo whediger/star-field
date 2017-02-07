@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import sun.audio.*;
+import javax.sound.sampled.*;
 
 class Damage {
 
@@ -15,6 +18,7 @@ class Damage {
   BufferedImage boom[] = new BufferedImage[90];
   boolean active;
 
+
   public Damage(int shipWidth, int shipHeight){
       this.x = x;
       this.y = y;
@@ -22,7 +26,6 @@ class Damage {
       this.shipHeight = shipHeight;
       this.damageCount = 0;
       this.active = true;
-
 
       try {
         for (int i = 1; i < 90; i++) {
@@ -36,6 +39,7 @@ class Damage {
   public void create(int x, int y) {
     this.x = x;
     this.y = y;
+    (new Thread(new DamageAudio())).start();
   }
 
   public BufferedImage getBoom() {
