@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {
   public Ship ship;
   public EnemyShip[] enemyShips = new EnemyShip[9];
   Laser laser;
+  public boolean isEnemies = false;
 
   public GamePanel(){
     super();
@@ -26,6 +27,12 @@ public class GamePanel extends JPanel {
       stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
     ship = new Ship();
+
+    createEnemies();
+  }
+
+  private void createEnemies(){
+    isEnemies = true;
     int marginL = 250;
     for (int i = 0; i < 9; i++) {
       int xspot;
@@ -40,7 +47,6 @@ public class GamePanel extends JPanel {
       }
       enemyShips[i] = new EnemyShip(xspot, yspot);
     }
-
   }
 
   public void paintComponent(Graphics g){
@@ -52,12 +58,28 @@ public class GamePanel extends JPanel {
   private void draw(Graphics g){
     drawStars(g);
     ship.draw(g);
-    for (int i = 0; i < enemyShips.length; i++) {
-      enemyShips[i].draw(g);
-    }
-
+    drawEnemies(g);
 
     Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawEnemies(Graphics g) {
+    boolean enemyThreat = false;
+
+    for (int i = 0; i < enemyShips.length; i++) {
+      if (enemyShips[i].isDestroyed() == false) enemyThreat = true;
+    }
+    if(enemyThreat) {
+      for (int i = 0; i < enemyShips.length; i++) {
+        enemyShips[i].draw(g);
+      }
+    } else {
+      isEnemies = false;
+      // CreateEnemies newEnemies = new CreateEnemies();
+      // (new Thread(newEnemies)).start();
+      // enemyShips = newEnemies.getShips();
+      createEnemies();
+    }
   }
 
   private void drawStars(Graphics g) {

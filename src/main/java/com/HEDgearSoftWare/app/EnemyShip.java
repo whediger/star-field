@@ -52,6 +52,10 @@ public class EnemyShip {
     return hit;
   }
 
+  public boolean isDestroyed() {
+    return destroyed;
+  }
+
   public BufferedImage getShip() {
     return enemyShip[0];
   }

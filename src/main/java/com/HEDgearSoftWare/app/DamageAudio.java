@@ -11,5 +11,6 @@ class DamageAudio implements Runnable {
 
   public void run(){
     player.play("/Users/whediger/Documents/java/playground/bitsNpieces/star-field/target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/explosion1.ogg");
+    
   }
 }
