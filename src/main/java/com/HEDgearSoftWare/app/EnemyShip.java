@@ -17,9 +17,9 @@ public class EnemyShip {
   private boolean destroyed;
   Damage damage;
 
-  EnemyShip() {
-    x = (int)(ScreenSize.WIDTH.getValue()/2);
-    y = 100;
+  EnemyShip(int x, int y) {
+    this.x = x;
+    this.y = y;
     shipWidth = 50;
     shipHeight = 75;
     destroyed = hit = false;

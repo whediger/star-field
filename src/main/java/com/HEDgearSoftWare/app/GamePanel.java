@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
 
   Stars stars[] = new Stars[50];
   public Ship ship;
-  public EnemyShip enemyShip;
+  public EnemyShip[] enemyShips = new EnemyShip[9];
   Laser laser;
 
   public GamePanel(){
@@ -26,7 +26,21 @@ public class GamePanel extends JPanel {
       stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
     ship = new Ship();
-    enemyShip = new EnemyShip();
+    int marginL = 250;
+    for (int i = 0; i < 9; i++) {
+      int xspot;
+      int yspot;
+      if (i < 5) {
+        if(i == 0) xspot = marginL;
+        else xspot = (marginL + (100 * i));
+        yspot = 100;
+      } else {
+        xspot = (marginL + 50 + ((i - 5) * 100));
+        yspot = 200;
+      }
+      enemyShips[i] = new EnemyShip(xspot, yspot);
+    }
+
   }
 
   public void paintComponent(Graphics g){
@@ -38,7 +52,10 @@ public class GamePanel extends JPanel {
   private void draw(Graphics g){
     drawStars(g);
     ship.draw(g);
-    enemyShip.draw(g);
+    for (int i = 0; i < enemyShips.length; i++) {
+      enemyShips[i].draw(g);
+    }
+
 
     Toolkit.getDefaultToolkit().sync();
   }
