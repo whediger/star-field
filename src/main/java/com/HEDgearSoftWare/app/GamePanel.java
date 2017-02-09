@@ -32,11 +32,12 @@ public class GamePanel extends JPanel {
   }
 
   private void createEnemies(){
+    System.out.println("createEnemies called +===}========>");
     isEnemies = true;
     int marginL = 250;
+    int xspot;
+    int yspot;
     for (int i = 0; i < 9; i++) {
-      int xspot;
-      int yspot;
       if (i < 5) {
         if(i == 0) xspot = marginL;
         else xspot = (marginL + (100 * i));
@@ -75,6 +76,8 @@ public class GamePanel extends JPanel {
       }
     } else {
       isEnemies = false;
+      //TODO possible new thread to remove pause whie loading
+      // test methods by timing them in millis
       // CreateEnemies newEnemies = new CreateEnemies();
       // (new Thread(newEnemies)).start();
       // enemyShips = newEnemies.getShips();
@@ -91,6 +94,23 @@ public class GamePanel extends JPanel {
                  stars[i].getDiameter(), stars[i].getDiameter());
       if(stars[i].getDiameter() >= 1) g.fillOval(stars[i].getX(),
          stars[i].getY(), stars[i].getDiameter(), stars[i].getDiameter());
+    }
+  }
+
+  // TODO temp value +===}========>
+  private boolean goEast = true;
+
+  public void moveEnemies() {
+    for (int i = 0; i < enemyShips.length; i++) {
+      if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth()))
+        goEast = false;
+      if(enemyShips[i].getX() < 0)
+        goEast = true;
+    }
+    for (int i = 0; i < enemyShips.length; i++) {
+        if(goEast) enemyShips[i].moveX(5);
+        else enemyShips[i].moveX(-5);
+      if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
     }
   }
 

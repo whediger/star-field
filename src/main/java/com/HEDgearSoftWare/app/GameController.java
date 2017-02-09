@@ -21,6 +21,7 @@ public class GameController {
   private void runGame(){
     while(true){
       gamePanel.move(gameListener.getInput());
+      gamePanel.moveEnemies();
       gamePanel.repaint();
       checkCollision.checkPanel(gamePanel);
       try{ Thread.sleep(15); }

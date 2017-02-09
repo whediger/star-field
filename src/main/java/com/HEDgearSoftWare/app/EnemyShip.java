@@ -13,10 +13,13 @@ public class EnemyShip {
   private int y;
   private int xPosy;
   private int yPosy;
+  private int xDest;
+  private int yDest;
   private double rads;
   private float radius;
   private int wobbleDir;
   private int degress;
+  private boolean moving;
   private int shipSpeed;
   private int shipWidth;
   private int shipHeight;
@@ -33,6 +36,7 @@ public class EnemyShip {
     else wobbleDir = 1;
     rads = Math.toRadians(degress - 90); //0 becomes the top
     radius = 2; //radius of ship wobble
+    moving = false;
     shipWidth = 50;
     shipHeight = 75;
     destroyed = hit = false;
@@ -57,8 +61,24 @@ public class EnemyShip {
     return x;
   }
 
+  public void setX(int x){
+    this.x = x;
+  }
+
+  public void moveX(int x){
+    this.x += x;
+  }
+
   public int getY() {
     return y;
+  }
+
+  public void setY() {
+    this.y = y;
+  }
+
+  public void moveY(int y){
+    this.y += y;
   }
 
   public boolean getIsHit(){
@@ -71,6 +91,11 @@ public class EnemyShip {
 
   public BufferedImage getShip() {
     return enemyShip[0];
+  }
+
+  public void moveShip(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
 
   public void hit(){
@@ -87,7 +112,8 @@ public class EnemyShip {
     degress += wobbleDir * 10;
     if(!destroyed){
       if(enemyShip[0] != null) {
-        g.drawImage(getShip(), xPosy, yPosy, shipWidth, shipHeight, null);
+        if(!moving) g.drawImage(getShip(), xPosy, yPosy, shipWidth, shipHeight, null);
+        else g.drawImage(getShip(), x, y, shipWidth, shipHeight, null);
       }
     } else {
       //destroy ship here!!!
