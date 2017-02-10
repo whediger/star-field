@@ -36,7 +36,7 @@ public class EnemyShip {
     else wobbleDir = 1;
     rads = Math.toRadians(degress - 90); //0 becomes the top
     radius = 2; //radius of ship wobble
-    moving = false;
+    moving = true;
     shipWidth = 50;
     shipHeight = 75;
     destroyed = hit = false;

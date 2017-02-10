@@ -101,12 +101,13 @@ public class GamePanel extends JPanel {
   private boolean goEast = true;
 
   public void moveEnemies() {
-    if(isEnemies) {
+    if(isEnemies) {  //causes concurrency issue wothout this(moves some before drawing others)
       for (int i = 0; i < enemyShips.length; i++) {
         if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth())
           && !enemyShips[i].isDestroyed())
           goEast = false;
-        if(enemyShips[i].getX() < 0)
+        if(enemyShips[i].getX() < 0
+          && !enemyShips[i].isDestroyed())
           goEast = true;
       }
       for (int i = 0; i < enemyShips.length; i++) {
@@ -114,7 +115,7 @@ public class GamePanel extends JPanel {
           else enemyShips[i].moveX(-5);
         if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
       }
-    }  
+    }
   }
 
   public void move(Set pi){
