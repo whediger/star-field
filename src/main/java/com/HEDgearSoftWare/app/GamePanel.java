@@ -32,12 +32,11 @@ public class GamePanel extends JPanel {
   }
 
   private void createEnemies(){
-    isEnemies = true;
     int marginL = 250;
     int xspot;
     int yspot;
-    for (int i = 0; i < 9; i++) {
-      if (i < 5) {
+    for (int i = 0; i < enemyShips.length; i++) {
+      if (i < enemyShips.length/2) {
         if(i == 0) xspot = marginL;
         else xspot = (marginL + (100 * i));
         yspot = 100;
@@ -47,6 +46,7 @@ public class GamePanel extends JPanel {
       }
       enemyShips[i] = new EnemyShip(xspot, yspot);
     }
+    isEnemies = true;
   }
 
   public void paintComponent(Graphics g){
@@ -101,18 +101,20 @@ public class GamePanel extends JPanel {
   private boolean goEast = true;
 
   public void moveEnemies() {
-    for (int i = 0; i < enemyShips.length; i++) {
-      if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth())
-        && !enemyShips[i].isDestroyed())
-        goEast = false;
-      if(enemyShips[i].getX() < 0)
-        goEast = true;
-    }
-    for (int i = 0; i < enemyShips.length; i++) {
-        if(goEast) enemyShips[i].moveX(5);
-        else enemyShips[i].moveX(-5);
-      if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
-    }
+    if(isEnemies) {
+      for (int i = 0; i < enemyShips.length; i++) {
+        if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth())
+          && !enemyShips[i].isDestroyed())
+          goEast = false;
+        if(enemyShips[i].getX() < 0)
+          goEast = true;
+      }
+      for (int i = 0; i < enemyShips.length; i++) {
+          if(goEast) enemyShips[i].moveX(5);
+          else enemyShips[i].moveX(-5);
+        if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
+      }
+    }  
   }
 
   public void move(Set pi){
