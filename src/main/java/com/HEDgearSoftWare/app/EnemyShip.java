@@ -109,7 +109,7 @@ public class EnemyShip {
     xPosy = Math.round((float) (x + Math.cos(rads) * radius));
     yPosy = Math.round((float) (y + Math.sin(rads) * radius));
     if(degress == 360) degress = 0;
-    degress += wobbleDir * 10;
+    degress += wobbleDir * 1;
     if(!destroyed){
       if(enemyShip[0] != null) {
         if(!moving) g.drawImage(getShip(), xPosy, yPosy, shipWidth, shipHeight, null);
