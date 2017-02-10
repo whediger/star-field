@@ -15,7 +15,8 @@ public class CheckCollision {
               panel.enemyShips[i].getY(),
               (panel.enemyShips[i].getY() + panel.enemyShips[i].getShipHeight()));
           if(hit) {
-            panel.enemyShips[i].hit();
+            if(!panel.enemyShips[i].isDestroyed())
+              panel.enemyShips[i].hit();
           }
         }
       }

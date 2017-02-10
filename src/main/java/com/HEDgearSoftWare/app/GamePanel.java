@@ -32,7 +32,6 @@ public class GamePanel extends JPanel {
   }
 
   private void createEnemies(){
-    System.out.println("createEnemies called +===}========>");
     isEnemies = true;
     int marginL = 250;
     int xspot;
@@ -52,11 +51,12 @@ public class GamePanel extends JPanel {
 
   public void paintComponent(Graphics g){
     super.paintComponent(g);
-
+    repaint();
     draw(g);
   }
 
   private void draw(Graphics g){
+
     drawStars(g);
     ship.draw(g);
     drawEnemies(g);
@@ -72,7 +72,7 @@ public class GamePanel extends JPanel {
     }
     if(enemyThreat) {
       for (int i = 0; i < enemyShips.length; i++) {
-        enemyShips[i].draw(g);
+          enemyShips[i].draw(g);
       }
     } else {
       isEnemies = false;
@@ -102,7 +102,8 @@ public class GamePanel extends JPanel {
 
   public void moveEnemies() {
     for (int i = 0; i < enemyShips.length; i++) {
-      if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth()))
+      if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth())
+        && !enemyShips[i].isDestroyed())
         goEast = false;
       if(enemyShips[i].getX() < 0)
         goEast = true;

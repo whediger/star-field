@@ -89,7 +89,8 @@ public class Ship {
       if (x1In <= laser.getStartX()
       && laser.getStartX() <= x2In
       && y1In <= laser.getStartY()
-      && (laser.getStartY() - (laser.getLength()/2)) <= y2In) {
+      && (laser.getStartY() - (laser.getLength()/2)) <= y2In
+      && laserMoving) {
         laserFired = laserMoving = false;
         return true;
       }
