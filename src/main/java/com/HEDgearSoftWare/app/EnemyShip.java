@@ -30,6 +30,8 @@ public class EnemyShip {
   EnemyShip(int x, int y) {
     this.x = x;
     this.y = y;
+    yPosy = -1;
+    xDest = -1;
     Random rand = new Random();
     degress = rand.nextInt(360);
     if(rand.nextInt(2) == 1) wobbleDir = -1;
@@ -47,6 +49,10 @@ public class EnemyShip {
     } catch (IOException exc){
       System.out.println("Error loading enemy ship image - " + exc);
     }
+  }
+
+  public void setMoving(boolean m){
+    moving = m;
   }
 
   public int getShipWidth() {
@@ -69,6 +75,14 @@ public class EnemyShip {
     this.x += x;
   }
 
+  public int getXDest() {
+    return xDest;
+  }
+
+  public void setXDest(int x) {
+    xDest = x;
+  }
+
   public int getY() {
     return y;
   }
@@ -79,6 +93,14 @@ public class EnemyShip {
 
   public void moveY(int y){
     this.y += y;
+  }
+
+  public int getYDest() {
+    return yDest;
+  }
+
+  public void setYDest(int y){
+    yDest = y;
   }
 
   public boolean getIsHit(){

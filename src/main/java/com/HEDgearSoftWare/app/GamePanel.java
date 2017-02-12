@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.util.*;
 import javax.swing.JPanel;
 
+import java.util.Random;
+
 
 public class GamePanel extends JPanel {
 
@@ -39,10 +41,10 @@ public class GamePanel extends JPanel {
       if (i < enemyShips.length/2) {
         if(i == 0) xspot = marginL;
         else xspot = (marginL + (100 * i));
-        yspot = 100;
+        yspot = -100;
       } else {
         xspot = (marginL + 50 + ((i - 5) * 100));
-        yspot = 200;
+        yspot = -200;
       }
       enemyShips[i] = new EnemyShip(xspot, yspot);
     }
@@ -111,13 +113,45 @@ public class GamePanel extends JPanel {
           goEast = true;
       }
       for (int i = 0; i < enemyShips.length; i++) {
-          if(goEast) enemyShips[i].moveX(5);
-          else enemyShips[i].moveX(-5);
+          //TODO add call to AI movement here        +==}========>
+          // enemyAI taken from here
+          enemyAI(i);
+
         if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
       }
     }
   }
 
+  // AI Movement  +===}========>
+  //random drone swarm
+  private void enemyAI(int i) {
+    if(enemyShips[i].getXDest() == -1 || enemyShips[i].getYDest() == -1) {
+      Random rand = new Random();
+      int destX = rand.nextInt(ScreenSize.WIDTH.getValue() + 200) - 100;
+      int destY = rand.nextInt(ScreenSize.HEIGHT.getValue() - 300);
+      enemyShips[i].setXDest(destX);
+      enemyShips[i].setYDest(destY);
+    }
+    if(Math.abs(enemyShips[i].getX() - enemyShips[i].getXDest()) >= 15){
+      if(enemyShips[i].getX() - enemyShips[i].getXDest() >= 0) enemyShips[i].moveX(-5);
+      else enemyShips[i].moveX(5);
+    } else {
+      enemyShips[i].setMoving(false);
+      enemyShips[i].setXDest(-1);
+    }
+    if(Math.abs(enemyShips[i].getY() - enemyShips[i].getYDest()) >= 15){
+      if(enemyShips[i].getY() - enemyShips[i].getYDest() >= 0) enemyShips[i].moveY(-3);
+      else enemyShips[i].moveY(3);
+    } else {
+      enemyShips[i].setMoving(false);
+      enemyShips[i].setYDest(-1);
+    }
+    // if(goEast) enemyShips[i].moveX(5);
+    // else enemyShips[i].moveX(-5);
+  }
+
+
+  //  Player Movement  +===]========>
   public void move(Set pi){
     for (int i = 0; i < stars.length; i++) {
       int speed;
