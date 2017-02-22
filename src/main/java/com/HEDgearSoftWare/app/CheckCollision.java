@@ -4,20 +4,28 @@ import java.awt.Graphics;
 
 public class CheckCollision {
 
+  boolean hit = false;
 
   public void checkPanel(GamePanel panel) {
-    if (panel.isEnemies)
+    if (panel.isEnemies){
       for (int i = 0; i < panel.enemyShips.length; i++) {
-        if(!panel.enemyShips[i].getIsHit()){
-          boolean hit = panel.ship.checkLaserHit(panel.enemyShips[i].getX(),
-              (panel.enemyShips[i].getX()
-              + panel.enemyShips[i].getShipWidth()),
-              panel.enemyShips[i].getY(),
-              (panel.enemyShips[i].getY() + panel.enemyShips[i].getShipHeight()));
-          if(hit) {
-              panel.enemyShips[i].hit();
-          }
+        checkLaserHitEnemy(panel.enemyShips[i], panel.ship);
+        if(hit) {
+            panel.enemyShips[i].hit();
         }
       }
+    }
   }
+
+
+  private void checkLaserHitEnemy(EnemyShip enemy, Ship ship){
+    if(!enemy.getIsHit()){
+      hit = ship.checkLaserHit(enemy.getX(),
+          (enemy.getX()
+          + enemy.getShipWidth()),
+          enemy.getY(),
+          (enemy.getY() + enemy.getShipHeight()));
+    }
+  }
+
 }
