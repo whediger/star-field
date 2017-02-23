@@ -4,27 +4,38 @@ import java.awt.Graphics;
 
 public class CheckCollision {
 
-  boolean hit = false;
-
   public void checkPanel(GamePanel panel) {
     if (panel.isEnemies){
       for (int i = 0; i < panel.enemyShips.length; i++) {
         checkLaserHitEnemy(panel.enemyShips[i], panel.ship);
-        if(hit) {
-            panel.enemyShips[i].hit();
-        }
+        checkPlayerShipHitEnemy(panel.enemyShips[i], panel.ship);
       }
     }
   }
 
+  private void checkPlayerShipHitEnemy(EnemyShip enemy, Ship ship) {
+    int handicap = -20;
+    if(!enemy.getIsHit()) {
+      if
+      (
+        (enemy.getX() + enemy.getShipWidth() + handicap >= ship.getX()
+        && enemy.getX() <= ship.getX() + ship.getShipWidth() + handicap)
+        &&
+        (enemy.getY() + enemy.getShipHeight() + handicap >= ship.getY()
+        && enemy.getY() < ship.getY() + ship.getShipHeight() + handicap)
+      )
+      enemy.hit();
+    }
+  }
 
-  private void checkLaserHitEnemy(EnemyShip enemy, Ship ship){
+  private void checkLaserHitEnemy(EnemyShip enemy, Ship ship) {
     if(!enemy.getIsHit()){
-      hit = ship.checkLaserHit(enemy.getX(),
+      if(ship.checkLaserHit(enemy.getX(),
           (enemy.getX()
           + enemy.getShipWidth()),
           enemy.getY(),
-          (enemy.getY() + enemy.getShipHeight()));
+          (enemy.getY() + enemy.getShipHeight())))
+        enemy.hit();
     }
   }
 
