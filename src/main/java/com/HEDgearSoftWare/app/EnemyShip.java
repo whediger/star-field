@@ -55,6 +55,10 @@ public class EnemyShip {
     moving = m;
   }
 
+  public boolean isMoving() {
+    return moving;
+  }
+
   public int getShipWidth() {
     return shipWidth;
   }

@@ -18,10 +18,12 @@ public class GamePanel extends JPanel {
   Laser laser;
   public boolean isEnemies = true;
   private int destroyedShipDelay;
+  private int pauseCount;
 
   public GamePanel(){
     super();
 
+    pauseCount = 0;
     setPreferredSize(new Dimension(ScreenSize.WIDTH.getValue(),
                                     ScreenSize.HEIGHT.getValue()));
     setFocusable(true);
@@ -122,19 +124,9 @@ public class GamePanel extends JPanel {
   public void moveEnemies() {
     if(isEnemies) {  //causes concurrency issue wothout this(moves some before drawing others)
       for (int i = 0; i < enemyShips.length; i++) {
-        if(enemyShips[i].getX() > (ScreenSize.WIDTH.getValue() - enemyShips[i].getShipWidth())
-          && !enemyShips[i].isDestroyed())
-          goEast = false;
-        if(enemyShips[i].getX() < 0
-          && !enemyShips[i].isDestroyed())
-          goEast = true;
-      }
-      for (int i = 0; i < enemyShips.length; i++) {
           //TODO add call to AI movement here        +==}========>
           // enemyAI taken from here
           enemyAI(enemyShips[i]);
-
-        if(enemyShips[i].getY() < ScreenSize.HEIGHT.getValue()) enemyShips[i].moveY(0);
       }
     }
   }
@@ -142,29 +134,42 @@ public class GamePanel extends JPanel {
   // AI Movement  +===}========>
   //random drone swarm
   private void enemyAI(EnemyShip enemy) {
-    if(enemy.getXDest() == -1 || enemy.getYDest() == -1) {
-      Random rand = new Random();
-      int destX = rand.nextInt(ScreenSize.WIDTH.getValue() + 200) - 100;
-      int destY = rand.nextInt(ScreenSize.HEIGHT.getValue() - 300);
-      enemy.setXDest(destX);
-      enemy.setYDest(destY);
+    Random rand = new Random();
+    if(enemy.isMoving()){
+      if(enemy.getXDest() == -1 || enemy.getYDest() == -1) {
+        int destX = rand.nextInt(ScreenSize.WIDTH.getValue() + 200) - 100;
+        int destY = rand.nextInt(ScreenSize.HEIGHT.getValue() - 300);
+        enemy.setXDest(destX);
+        enemy.setYDest(destY);
+      }
+      if(Math.abs(enemy.getX() - enemy.getXDest()) >= 15){
+        if(enemy.getX() - enemy.getXDest() >= 0) enemy.moveX(-5);
+        else enemy.moveX(5);
+      } else {
+        if(rand.nextInt(10) < 5)
+          enemy.setMoving(false);
+        enemy.setXDest(-1);
+      }
+      if(Math.abs(enemy.getY() - enemy.getYDest()) >= 15){
+        if(enemy.getY() - enemy.getYDest() >= 0) enemy.moveY(-3);
+        else enemy.moveY(3);
+      } else {
+        if(rand.nextInt(10) < 5)
+          enemy.setMoving(false);
+        enemy.setYDest(-1);
+      }
     }
-    if(Math.abs(enemy.getX() - enemy.getXDest()) >= 15){
-      if(enemy.getX() - enemy.getXDest() >= 0) enemy.moveX(-5);
-      else enemy.moveX(5);
-    } else {
-      enemy.setMoving(false);
-      enemy.setXDest(-1);
+    else
+    {
+      pauseCount++;
+      if(pauseCount >= 20){
+        pauseCount = 0;
+        enemy.setMoving(true);
+        int destX = rand.nextInt(ScreenSize.WIDTH.getValue() + 200) - 100;
+        int destY = rand.nextInt(ScreenSize.HEIGHT.getValue() - 300);
+        enemy.setXDest(destX);
+        enemy.setYDest(destY);}
     }
-    if(Math.abs(enemy.getY() - enemy.getYDest()) >= 15){
-      if(enemy.getY() - enemy.getYDest() >= 0) enemy.moveY(-3);
-      else enemy.moveY(3);
-    } else {
-      enemy.setMoving(false);
-      enemy.setYDest(-1);
-    }
-    // if(goEast) enemyShips[i].moveX(5);
-    // else enemyShips[i].moveX(-5);
   }
 
 
