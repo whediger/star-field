@@ -53,7 +53,7 @@ public class GamePanel extends JPanel {
         xspot = (marginL + 50 + ((i - 5) * 100));
         yspot = -200;
       }
-      enemyShips[i] = new EnemyShip(xspot, yspot);
+      enemyShips[i] = new EnemyShip(xspot, yspot, ScreenSize.HEIGHT.getValue()); 
     }
     isEnemies = true;
   }
@@ -162,6 +162,7 @@ public class GamePanel extends JPanel {
     else
     {
       pauseCount++;
+      if(pauseCount == 15) enemy.fireStarBurst();
       if(pauseCount >= 20){
         pauseCount = 0;
         enemy.setMoving(true);

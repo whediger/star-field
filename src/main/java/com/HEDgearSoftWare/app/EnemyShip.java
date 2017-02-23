@@ -27,7 +27,15 @@ public class EnemyShip {
   private boolean destroyed;
   Damage damage;
 
-  EnemyShip(int x, int y) {
+  StarBurst starBurst;
+  private boolean starFired;
+  private boolean starMoving;
+  int screenHeight;
+
+  EnemyShip(int x, int y, int sHeight) {
+    screenHeight = sHeight;
+    starBurst = new StarBurst();
+
     this.x = x;
     this.y = y;
     yPosy = -1;
@@ -130,7 +138,29 @@ public class EnemyShip {
     destroyed = true;
   }
 
+  public void fireStarBurst(){
+    if(!destroyed){
+      if(!starFired){
+        starBurst = new StarBurst();
+        starBurst.fire((x + (shipWidth/2)), y + 15);
+        starFired = true;
+        starMoving = true;
+      }
+    }
+  }
+
+  public void moveStar(Graphics g){
+    starBurst.move();
+    if (starBurst.getStartY() >= screenHeight) starFired = starMoving = false;
+    starBurst.draw(g);
+  }
+
   public void draw(Graphics g) {
+    if(starFired && starMoving)
+      moveStar(g);
+    if(starFired && !starMoving)
+      fireStarBurst();
+
     rads = Math.toRadians(degress - 90); //0 becomes the top
     xPosy = Math.round((float) (x + Math.cos(rads) * radius));
     yPosy = Math.round((float) (y + Math.sin(rads) * radius));
