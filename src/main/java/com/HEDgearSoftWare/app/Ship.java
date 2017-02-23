@@ -44,6 +44,10 @@ public class Ship {
     }
   }
 
+  public boolean isDestroyed() {
+    return destroyed;
+  }
+
   public int getShipWidth(){
     return shipWidth;
   }
@@ -83,11 +87,13 @@ public class Ship {
   }
 
   public void fireLaser(){
-    if(!laserFired){
-      laser = new Laser();
-      laser.fire((x + (shipWidth/2)), y + 15);
-      laserFired = true;
-      laserMoving = true;
+    if(!destroyed){
+      if(!laserFired){
+        laser = new Laser();
+        laser.fire((x + (shipWidth/2)), y + 15);
+        laserFired = true;
+        laserMoving = true;
+      }
     }
   }
 

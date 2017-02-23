@@ -17,6 +17,7 @@ public class GamePanel extends JPanel {
   public EnemyShip[] enemyShips = new EnemyShip[9];
   Laser laser;
   public boolean isEnemies = true;
+  private int destroyedShipDelay;
 
   public GamePanel(){
     super();
@@ -28,9 +29,13 @@ public class GamePanel extends JPanel {
     for(int i = 0; i < stars.length; i++)
       stars[i] = new Stars(ScreenSize.WIDTH.getValue(), ScreenSize.HEIGHT.getValue());
 
-    ship = new Ship();
-
+    createShip();
     createEnemies();
+  }
+
+  private void createShip(){
+    ship = new Ship();
+    destroyedShipDelay = 0;
   }
 
   private void createEnemies(){
@@ -60,10 +65,22 @@ public class GamePanel extends JPanel {
   private void draw(Graphics g){
 
     drawStars(g);
-    ship.draw(g);
+    drawShip(g);
     drawEnemies(g);
 
     Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawShip(Graphics g) {
+    if(destroyedShipDelay == 1000){
+      createShip();
+    }
+
+    if(!ship.isDestroyed())
+      ship.draw(g);
+    else {
+      ship.draw(g);
+      destroyedShipDelay++;}
   }
 
   private void drawEnemies(Graphics g) {
