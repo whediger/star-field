@@ -14,7 +14,7 @@ public class CheckCollision {
   }
 
   private void checkPlayerShipHitEnemy(EnemyShip enemy, Ship ship) {
-    int handicap = -20;
+    int handicap = -20; //scale to cause collision inside the image size
     if(!enemy.getIsHit()) {
       if
       (
@@ -24,7 +24,10 @@ public class CheckCollision {
         (enemy.getY() + enemy.getShipHeight() + handicap >= ship.getY()
         && enemy.getY() < ship.getY() + ship.getShipHeight() + handicap)
       )
+      {
       enemy.hit();
+      ship.hit();
+      }
     }
   }
 

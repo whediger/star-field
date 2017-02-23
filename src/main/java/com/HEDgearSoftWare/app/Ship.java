@@ -15,6 +15,9 @@ public class Ship {
   private int shipSpeed;
   private int shipWidth;
   private int shipHeight;
+  Damage damage;
+  private boolean hit = false;
+  private boolean destroyed = false;
 
   Laser laser;
   private boolean laserFired;
@@ -29,6 +32,7 @@ public class Ship {
     int shipNo = -5;
     shipSpeed = 5;
     shipWidth = shipHeight = 50;
+    damage = new Damage(shipWidth, shipHeight);
 
     for (int i = 0; i <= 10; i++) {
       try {
@@ -60,13 +64,22 @@ public class Ship {
     return ship[currentShip];
   }
 
+  public void hit(){
+    damage.create(x, y);
+    hit = true;
+    destroyed = true;
+  }
+
   public void draw(Graphics g){
     if(laserFired && laserMoving)
       moveLaser(g);
     if(laserFired && !laserMoving)
       fireLaser();
-    if(ship != null) g.drawImage(getShip(), x,
-                y, shipWidth, shipHeight, null);
+    if(!destroyed){
+      if(ship != null) g.drawImage(getShip(), x,
+                  y, shipWidth, shipHeight, null);
+    }
+    if(hit) damage.draw(g);
   }
 
   public void fireLaser(){
