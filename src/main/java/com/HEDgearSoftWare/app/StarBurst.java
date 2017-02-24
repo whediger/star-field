@@ -24,7 +24,8 @@ public class StarBurst {
     private static final int STAR_LENGTH = 40;
     private static final int STAR_DENSITY = (int)(PARTICLE_COUNT/STAR_LENGTH);
     private int shipWidth;
-    Random rand = new Random();;
+    Random rand = new Random();
+    File audioFile;
 
     //audio vars +===}========>
     Clip starClip;
@@ -39,8 +40,7 @@ public class StarBurst {
     public StarBurst(int sw){
       shipWidth = sw;
       randHeadNum = rand.nextInt(9);
-      randBodyNum = rand.nextInt(9);
-      randTailNum = rand.nextInt(9);
+      audioFile = new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Heads/HEAD000"+randHeadNum+".wav");
     }
 
     //methods +===}========>
@@ -128,19 +128,11 @@ public class StarBurst {
 
     private void startAudio(){
       try {
-        audioHead = AudioSystem.getAudioInputStream
-        (
-          new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Heads/HEAD000"+randHeadNum+".wav")
-        );
-        audioBody = AudioSystem.getAudioInputStream
-        (
-          new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Bodies/BODY000"+randBodyNum+".wav")
-        );
+        audioHead = AudioSystem.getAudioInputStream(audioFile);
         starClip = AudioSystem.getClip();
         starClip.open(audioHead);
-        // starClip.open(audioBody);
         volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-0.0f);
+        volume.setValue(-10.0f);
         starClip.start();
       } catch(LineUnavailableException exc){
         System.out.println(exc);
