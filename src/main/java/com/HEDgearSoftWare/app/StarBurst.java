@@ -24,19 +24,28 @@ public class StarBurst {
     private static final int STAR_LENGTH = 40;
     private static final int STAR_DENSITY = (int)(PARTICLE_COUNT/STAR_LENGTH);
     private int shipWidth;
+    Random rand = new Random();;
 
     //audio vars +===}========>
     Clip starClip;
     FloatControl volume;
-    AudioInputStream ain;
+    AudioInputStream audioHead;
+    AudioInputStream audioBody;
+    AudioInputStream audioTail;
+    int randHeadNum;
+    int randBodyNum;
+    int randTailNum;
 
     public StarBurst(int sw){
       shipWidth = sw;
+      randHeadNum = rand.nextInt(9);
+      randBodyNum = rand.nextInt(9);
+      randTailNum = rand.nextInt(9);
     }
 
     //methods +===}========>
     public void move(){
-      Random rand = new Random();
+
       int xPosy = 0;
       int yPosy = 0;
       int randFlip = 1;
@@ -109,7 +118,6 @@ public class StarBurst {
       startAudio();
     }
 
-    //this is causing null pointer exceptions!!!!!!!!!!!!!
     public void draw(Graphics g){
       for (int i = 0; i < star.length; i++) {
         g.setColor(star[i].color);
@@ -120,12 +128,19 @@ public class StarBurst {
 
     private void startAudio(){
       try {
-        ain = AudioSystem.getAudioInputStream(
-    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
+        audioHead = AudioSystem.getAudioInputStream
+        (
+          new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Heads/HEAD000"+randHeadNum+".wav")
+        );
+        audioBody = AudioSystem.getAudioInputStream
+        (
+          new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Bodies/BODY000"+randBodyNum+".wav")
+        );
         starClip = AudioSystem.getClip();
-        starClip.open(ain);
+        starClip.open(audioHead);
+        // starClip.open(audioBody);
         volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-10.0f);
+        volume.setValue(-0.0f);
         starClip.start();
       } catch(LineUnavailableException exc){
         System.out.println(exc);
