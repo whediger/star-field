@@ -34,7 +34,6 @@ public class EnemyShip {
 
   EnemyShip(int x, int y, int sHeight) {
     screenHeight = sHeight;
-    starBurst = new StarBurst();
 
     this.x = x;
     this.y = y;
@@ -49,6 +48,7 @@ public class EnemyShip {
     moving = true;
     shipWidth = 50;
     shipHeight = 75;
+    starBurst = new StarBurst(shipWidth);
     destroyed = hit = false;
     damage = new Damage(shipWidth, shipHeight);
 
@@ -141,7 +141,7 @@ public class EnemyShip {
   public void fireStarBurst(){
     if(!destroyed){
       if(!starFired){
-        starBurst = new StarBurst();
+        starBurst = new StarBurst(shipWidth);
         starBurst.fire((x + (shipWidth/2)), y + 15);
         starFired = true;
         starMoving = true;

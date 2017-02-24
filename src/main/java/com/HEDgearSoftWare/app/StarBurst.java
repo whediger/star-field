@@ -11,26 +11,83 @@ import javax.sound.sampled.*;
 public class StarBurst {
 
     private int x;
-    private int originX;
     private int y;
+    private int originX;
     private int originY;
     private int startX;
     private int startY;
     private final int starSpeed = 2;
-    private Color color = Color.GREEN;
+    private Color color;
     private Graphics g;
-    private static final int PARTICLE_COUNT = 1000;
+    private static final int PARTICLE_COUNT = 400;
     private Particle[] star = new Particle[PARTICLE_COUNT];
     private static final int STAR_LENGTH = 40;
     private static final int STAR_DENSITY = (int)(PARTICLE_COUNT/STAR_LENGTH);
-    private static final int STAR_WIDTH = 50;
+    private int shipWidth;
 
     //audio vars +===}========>
     Clip starClip;
     FloatControl volume;
     AudioInputStream ain;
 
+    public StarBurst(int sw){
+      shipWidth = sw;
+    }
+
     //methods +===}========>
+    public void move(){
+      Random rand = new Random();
+      int xPosy = 0;
+      int yPosy = 0;
+      int randFlip = 1;
+      int radius = (int)shipWidth/2;
+      int middleR = (int) radius / 2;
+      double rads = 0;
+      int rdn = 0;
+      int ptclCnt = 0;
+      int lineCount = 4; //number of lines in the burst
+      int radShift = rand.nextInt(360 / (lineCount * 2));
+      int lineShift = 360 / (lineCount * 2);
+      int degree1 = 0 + radShift;
+      int degree2 = 180 + radShift;
+      int burst = (int)PARTICLE_COUNT / lineCount;
+      int middleD = (int)burst / 4;
+      int outterD = (int)(burst * 3) / 4;
+      color = new Color(255, 255, 255);
+      int randMidR;
+      int randOutR;
+      Particle p;
+
+      for (int i = 0; i < lineCount; i++) {
+        randMidR = rand.nextInt(middleR) + 1;
+        randOutR = rand.nextInt(radius) + 1;
+        degree1 += (lineShift * i);
+        degree2 += (lineShift * i);
+        for (int j = 0; j < burst; j++) {
+          randFlip = rand.nextInt(2);
+          if (randFlip == 1) {
+            rads = Math.toRadians(degree1);
+          } else {
+            rads = Math.toRadians(degree2);
+          }
+          if (j < middleD) {
+            rdn = rand.nextInt(randMidR);
+            xPosy = Math.round((float) (startX + Math.cos(rads) * rdn));
+            yPosy = Math.round((float) (startY + Math.sin(rads) * rdn));
+          } else {
+            color = new Color(100, 255, 100);
+            rdn = rand.nextInt(randOutR);
+            xPosy = Math.round((float) (startX + Math.cos(rads) * rdn));
+            yPosy = Math.round((float) (startY + Math.sin(rads) * rdn));
+          }
+          p = new Particle(xPosy, yPosy, 1, color);
+          star[ptclCnt] = p;
+          ptclCnt++;
+        }
+      }
+      startY += starSpeed;
+    }
+
     public int getStartY(){
       return startY;
     }
@@ -52,41 +109,13 @@ public class StarBurst {
       startAudio();
     }
 
+    //this is causing null pointer exceptions!!!!!!!!!!!!!
     public void draw(Graphics g){
       for (int i = 0; i < star.length; i++) {
         g.setColor(star[i].color);
         g.drawOval(star[i].x, star[i].y,
                   star[i].size, star[i].size);
       };
-    }
-
-    public void move(){
-      Random rand = new Random();
-      int ycount = 0;
-      int halfWidth = (int)STAR_WIDTH/2;
-      int halfCount = 0;
-      // System.out.println(PARTICLE_COUNT);
-      for (int i = 0; i < PARTICLE_COUNT; i++) {
-        int sign = -1;
-        color = new Color(0, 0, rand.nextInt(255));
-        if (rand.nextInt(10) % 2 == 0) sign = 1;
-        if(halfCount == 0){
-          x = startX;
-          color = new Color(240, 240, 255);
-        } else {
-          x = startX + ((rand.nextInt(halfWidth-halfCount)) * sign);
-        }
-        //TODO turn this into an actual starBurst
-        //startY - length, creates laser from start point at ship downward;
-        y = startY + ycount + 1;
-        Particle p = new Particle(x, y, 1, color);
-        star[i] = p;
-        halfCount++;
-        if(i % STAR_DENSITY == 0)
-           ycount++;
-        if(halfCount == halfWidth) halfCount = 0;
-      }
-      startY += starSpeed;
     }
 
     private void startAudio(){
