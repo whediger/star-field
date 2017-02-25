@@ -47,7 +47,6 @@ public class StarBurst {
         starClip.open(audioHead);
         volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
         volume.setValue(-10.0f);
-
       } catch(LineUnavailableException exc){
         System.out.println(exc);
       } catch(FileNotFoundException exc){

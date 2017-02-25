@@ -28,6 +28,25 @@ public class Laser {
     FloatControl volume;
     AudioInputStream ain;
 
+    public Laser() {
+      try {
+        ain = AudioSystem.getAudioInputStream(
+    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
+        laserClip = AudioSystem.getClip();
+        laserClip.open(ain);
+        volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue(-15.0f);  
+      } catch(LineUnavailableException exc){
+        System.out.println(exc);
+      } catch(FileNotFoundException exc){
+        System.out.println("Error: Laser sound file not found  - " + exc);
+      } catch(IOException exc){
+        System.out.println(exc);
+      } catch (UnsupportedAudioFileException exc){
+        System.out.println(exc);
+      }
+    }
+
     //methods +===}========>
     public int getStartY(){
       return startY;
@@ -87,23 +106,7 @@ public class Laser {
     }
 
     private void startAudio(){
-      try {
-        ain = AudioSystem.getAudioInputStream(
-    new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/superLaser.wav"));
-        laserClip = AudioSystem.getClip();
-        laserClip.open(ain);
-        volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-15.0f);
-        laserClip.start();
-      } catch(LineUnavailableException exc){
-        System.out.println(exc);
-      } catch(FileNotFoundException exc){
-        System.out.println("Error: Laser sound file not found  - " + exc);
-      } catch(IOException exc){
-        System.out.println(exc);
-      } catch (UnsupportedAudioFileException exc){
-        System.out.println(exc);
-      }
+      laserClip.start();
     }
 
     public void stopAudio(){
