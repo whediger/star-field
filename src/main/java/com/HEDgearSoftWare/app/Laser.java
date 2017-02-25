@@ -93,7 +93,7 @@ public class Laser {
         laserClip = AudioSystem.getClip();
         laserClip.open(ain);
         volume = (FloatControl) laserClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-10.0f);
+        volume.setValue(-15.0f);
         laserClip.start();
       } catch(LineUnavailableException exc){
         System.out.println(exc);
