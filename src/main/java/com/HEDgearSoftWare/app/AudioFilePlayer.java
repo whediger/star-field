@@ -3,6 +3,7 @@ package com.HEDgearSoftWare.app;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.*;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,6 +16,33 @@ import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 
 public class AudioFilePlayer {
+
+    private float volume = 0.0f;
+
+    public AudioFilePlayer(){
+      this("medium");
+    }
+
+    public AudioFilePlayer(String v){
+
+      switch(v) {
+        case  "lowest": volume = -20.0f;
+          break;
+        case   "lower": volume = -15.0f;
+          break;
+        case     "low": volume = -10.0f;
+          break;
+        case  "medium": volume =   0.0f;
+          break;
+        case    "high": volume =  10.0f;
+          break;
+        case  "higher": volume =  15.0f;
+          break;
+        case "highest": volume =  20.0f;
+          break;
+      }
+
+    }
 
     public void play(String filePath) {
 
@@ -30,6 +58,9 @@ public class AudioFilePlayer {
 
                 if (line != null) {
                     line.open(outFormat);
+                      FloatControl gainControl =
+                        (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+                        gainControl.setValue(volume);
                     line.start();
                     stream(getAudioInputStream(outFormat, in), line);
                     line.drain();
