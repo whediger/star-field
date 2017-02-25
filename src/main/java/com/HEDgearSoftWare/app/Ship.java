@@ -8,6 +8,7 @@ import java.awt.Graphics;
 public class Ship {
 
   BufferedImage ship[] = new BufferedImage[11];
+  private int numOfLives;
   private int currentShip = 6;
   private int counter = 0;
   private int x;
@@ -18,20 +19,23 @@ public class Ship {
   Damage damage;
   private boolean hit = false;
   private boolean destroyed = false;
+  private int destroyedShipDelay;
 
   Laser laser;
   private boolean laserFired;
   private boolean laserMoving;
 
   Ship(){
+    numOfLives = 4;
+    destroyedShipDelay = 0;
 
     laser  = new Laser();
 
-    x = (ScreenSize.WIDTH.getValue()/2 -25);
-    y = (ScreenSize.HEIGHT.getValue() - 100);
     int shipNo = -5;
     shipSpeed = 5;
     shipWidth = shipHeight = 50;
+    x = (ScreenSize.WIDTH.getValue()/2 -(shipWidth/2));
+    y = (ScreenSize.HEIGHT.getValue() - 100);
     damage = new Damage(shipWidth, shipHeight);
 
     for (int i = 0; i <= 10; i++) {
@@ -82,6 +86,15 @@ public class Ship {
     if(!destroyed){
       if(ship != null) g.drawImage(getShip(), x,
                   y, shipWidth, shipHeight, null);
+    } else {
+      destroyedShipDelay++;
+      if (destroyedShipDelay >= 1000){
+        x = (ScreenSize.WIDTH.getValue()/2 -(shipWidth/2));
+        y = (ScreenSize.HEIGHT.getValue() - 100);
+        hit = false;
+        destroyed = false;
+        destroyedShipDelay = 0;
+      }
     }
     if(hit) damage.draw(g);
   }

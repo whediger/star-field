@@ -41,6 +41,22 @@ public class StarBurst {
       shipWidth = sw;
       randHeadNum = rand.nextInt(9);
       audioFile = new File("target/classes/com/HEDgearSoftWare/app/resources/audio/soundFX/Laser-Lab/Heads/HEAD000"+randHeadNum+".wav");
+      try {
+        audioHead = AudioSystem.getAudioInputStream(audioFile);
+        starClip = AudioSystem.getClip();
+        starClip.open(audioHead);
+        volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
+        volume.setValue(-10.0f);
+
+      } catch(LineUnavailableException exc){
+        System.out.println(exc);
+      } catch(FileNotFoundException exc){
+        System.out.println("Error: Star sound file not found  - " + exc);
+      } catch(IOException exc){
+        System.out.println(exc);
+      } catch (UnsupportedAudioFileException exc){
+        System.out.println(exc);
+      }
     }
 
     //methods +===}========>
@@ -127,22 +143,7 @@ public class StarBurst {
     }
 
     private void startAudio(){
-      try {
-        audioHead = AudioSystem.getAudioInputStream(audioFile);
-        starClip = AudioSystem.getClip();
-        starClip.open(audioHead);
-        volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
-        volume.setValue(-10.0f);
-        starClip.start();
-      } catch(LineUnavailableException exc){
-        System.out.println(exc);
-      } catch(FileNotFoundException exc){
-        System.out.println("Error: Star sound file not found  - " + exc);
-      } catch(IOException exc){
-        System.out.println(exc);
-      } catch (UnsupportedAudioFileException exc){
-        System.out.println(exc);
-      }
+      starClip.start();
     }
 
     public void stopAudio(){
