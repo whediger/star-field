@@ -44,7 +44,7 @@ public class StarBurst {
       try {
         audioHead = AudioSystem.getAudioInputStream(audioFile);
         starClip = AudioSystem.getClip();
-        starClip.open(audioHead);
+        starClip.open(audioHead); //TODO this is causing a memory leak
         volume = (FloatControl) starClip.getControl(FloatControl.Type.MASTER_GAIN);
         volume.setValue(-10.0f);
       } catch(LineUnavailableException exc){
@@ -75,8 +75,8 @@ public class StarBurst {
       int degree1 = 0 + radShift;
       int degree2 = 180 + radShift;
       int burst = (int)PARTICLE_COUNT / lineCount;
-      int middleD = (int)burst / 4;
-      int outterD = (int)(burst * 3) / 4;
+      int middleD = (int)burst / 2;
+      int outterD = (int)burst / 2;
       color = new Color(255, 255, 255);
       int randMidR;
       int randOutR;
@@ -95,6 +95,7 @@ public class StarBurst {
             rads = Math.toRadians(degree2);
           }
           if (j < middleD) {
+            color = new Color(100, 100, 255);
             rdn = rand.nextInt(randMidR);
             xPosy = Math.round((float) (startX + Math.cos(rads) * rdn));
             yPosy = Math.round((float) (startY + Math.sin(rads) * rdn));

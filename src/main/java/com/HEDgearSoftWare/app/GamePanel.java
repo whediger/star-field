@@ -13,6 +13,7 @@ import java.util.Random;
 public class GamePanel extends JPanel {
 
   Stars stars[] = new Stars[50];
+  private String score;
   public Ship ship;
   public EnemyShip[] enemyShips = new EnemyShip[9];
   Laser laser;
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel {
   public GamePanel(){
     super();
 
+    score = "Score: 0";
     pauseCount = 0;
     setPreferredSize(new Dimension(ScreenSize.WIDTH.getValue(),
                                     ScreenSize.HEIGHT.getValue()));
@@ -56,19 +58,26 @@ public class GamePanel extends JPanel {
     isEnemies = true;
   }
 
+  @Override
   public void paintComponent(Graphics g){
     super.paintComponent(g);
-    repaint();
     draw(g);
+    repaint();
   }
 
   private void draw(Graphics g){
-
     drawStars(g);
+    drawScore(g);
     drawShip(g);
     drawEnemies(g);
 
     Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawScore(Graphics g) {
+    score = "Score: " + Integer.toString(ship.getPoints());
+    g.setColor(new Color(255, 50, 50));
+    g.drawString(score, 15, ScreenSize.HEIGHT.getValue() - 10);
   }
 
   private void drawShip(Graphics g) {

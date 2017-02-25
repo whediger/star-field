@@ -26,6 +26,7 @@ public class EnemyShip {
   private boolean hit;
   private boolean destroyed;
   Damage damage;
+  private int pointValue;
 
   StarBurst starBurst;
   private boolean starFired;
@@ -51,12 +52,17 @@ public class EnemyShip {
     starBurst = new StarBurst(shipWidth);
     destroyed = hit = false;
     damage = new Damage(shipWidth, shipHeight);
+    pointValue = 25;
 
     try {
       enemyShip[0] = ImageIO.read(this.getClass().getResource("resources/badShips/drone.png"));
     } catch (IOException exc){
       System.out.println("Error loading enemy ship image - " + exc);
     }
+  }
+
+  public int getPointValue() {
+    return pointValue;
   }
 
   public void setMoving(boolean m){

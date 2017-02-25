@@ -9,6 +9,7 @@ public class Ship {
 
   BufferedImage ship[] = new BufferedImage[11];
   private int numOfLives;
+  private int points;
   private int currentShip = 6;
   private int counter = 0;
   private int x;
@@ -27,6 +28,7 @@ public class Ship {
 
   Ship(){
     numOfLives = 4;
+    points = 0;
     destroyedShipDelay = 0;
 
     laser  = new Laser();
@@ -80,7 +82,7 @@ public class Ship {
 
   public void draw(Graphics g){
     if(numOfLives > 0){
-      int startL = ScreenSize.WIDTH.getValue() - 30;
+      int startL = ScreenSize.WIDTH.getValue();
       int posYL = ScreenSize.HEIGHT.getValue() - 30;
       for (int i = numOfLives; i > 1; i--) {
         g.drawImage(ship[5], startL-(30*i), posYL, 20, 20, null);
@@ -136,6 +138,14 @@ public class Ship {
       }
     }
     return false;
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public void addPoints(int p) {
+    this.points += p;
   }
 
   public void moveShipRight(){

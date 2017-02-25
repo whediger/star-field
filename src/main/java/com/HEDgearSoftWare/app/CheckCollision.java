@@ -27,6 +27,7 @@ public class CheckCollision {
       {
       enemy.hit();
       ship.hit();
+      ship.addPoints(enemy.getPointValue());
       }
     }
   }
@@ -38,7 +39,10 @@ public class CheckCollision {
           + enemy.getShipWidth()),
           enemy.getY(),
           (enemy.getY() + enemy.getShipHeight())))
+        {
         enemy.hit();
+        ship.addPoints(enemy.getPointValue());
+        }
     }
   }
 
