@@ -79,6 +79,13 @@ public class Ship {
   }
 
   public void draw(Graphics g){
+    if(numOfLives > 0){
+      int startL = ScreenSize.WIDTH.getValue() - 30;
+      int posYL = ScreenSize.HEIGHT.getValue() - 30;
+      for (int i = numOfLives; i > 1; i--) {
+        g.drawImage(ship[5], startL-(30*i), posYL, 20, 20, null);
+      }
+    }
     if(laserFired && laserMoving)
       moveLaser(g);
     if(laserFired && !laserMoving)
@@ -94,6 +101,7 @@ public class Ship {
         hit = false;
         destroyed = false;
         destroyedShipDelay = 0;
+        numOfLives--;
       }
     }
     if(hit) damage.draw(g);
